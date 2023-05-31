@@ -1,0 +1,48 @@
+body{
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+header ul,footer ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    font-size: 11px;
+}
+
+header li{
+    padding: 16px;
+}
+
+header a,footer a{
+    text-decoration: none;
+    color: black;
+    text-transform: uppercase;
+}
+
+#logo-container{
+    height: 20px;    
+}
+
+#logo-container img{
+    height: 100%;
+}
+
+
+
+footer ul{
+    padding: 0 120px;
+    justify-content: space-between;
+}
+
+footer i{
+    font-size: 24px;
+}
