@@ -1,4 +1,4 @@
-import "./Navbar.css";
+import { useState } from "react";
 import {
   AiOutlineMenu,
   AiOutlineSearch,
@@ -7,65 +7,73 @@ import {
 } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 const Navbar = () => {
+  const [mobileMenu, setMobileMenu] = useState(false);
+  function menuHandlder(){
+    setMobileMenu(!mobileMenu);
+  }
   return (
-    <header className="bg-white px-9 h-[55px] flex justify-between items-center min-w-[370px]">
-      <div className="w-[60px] flex justify-between lg:hidden">
-        <AiOutlineMenu size={25}></AiOutlineMenu>
-        <AiOutlineSearch size={25}></AiOutlineSearch>
-      </div>
+    <div>
+      <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
+        <div className="w-[60px] flex justify-between lg:hidden">
+          <AiOutlineMenu size={25} onClick={menuHandlder} onMouseOver={() => {
+            
+          }}></AiOutlineMenu>
 
-      <ul className="hidden lg:flex w-[40%] justify-between min-w-[450px]">
-        <li className="px-2 text-[11px]">
-        <a href="#" class="group transition duration-300">
-            MENSWEAR
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-            </a>
-        </li>
-        <li className="px-2 text-[11px]">
+          <AiOutlineSearch size={25}></AiOutlineSearch>
+        </div>
+
+        <ul className="hidden lg:flex w-[40%] justify-between min-w-[450px]">
+          <li className="px-2 text-[11px]">
             <a href="#" class="group transition duration-300">
-            WOMENSWEAR
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-            </a>
-        </li>
-        <li className="px-2 text-[11px] invisible md:visible">
-        <a href="#" class="group transition duration-300">
-            EVERYTHING ELSE
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-            </a>
-        </li>
-        <li className="px-2 text-[11px] ">
-        <a href="#" class="group transition duration-300">
-            SEARCH
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-            </a>
-        </li>
-        <li className="px-2 text-[11px] invisible xl:visible">
-        <a href="#" class="group transition duration-300">
-            SALES
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              MENSWEAR
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
           </li>
-      </ul>
+          <li className="px-2 text-[11px]">
+            <a href="#" class="group transition duration-300">
+              WOMENSWEAR
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            </a>
+          </li>
+          <li className="px-2 text-[11px] invisible md:visible">
+            <a href="#" class="group transition duration-300">
+              EVERYTHING ELSE
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            </a>
+          </li>
+          <li className="px-2 text-[11px] ">
+            <a href="#" class="group transition duration-300">
+              SEARCH
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            </a>
+          </li>
+          <li className="px-2 text-[11px] invisible xl:visible">
+            <a href="#" class="group transition duration-300">
+              SALES
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            </a>
+          </li>
+        </ul>
 
-      <a href="" className="block">
-        <img
-          className="h-[21px]"
-          src="//res.cloudinary.com/ssenseweb/image/upload/v1471963917/web/ssense_logo_v2.svg"
-          alt="SSENSE"
-        />
-      </a>
+        <a href="" className="block">
+          <img
+            className="h-[21px]"
+            src="//res.cloudinary.com/ssenseweb/image/upload/v1471963917/web/ssense_logo_v2.svg"
+            alt="SSENSE"
+          />
+        </a>
 
         <ul className="hidden lg:flex w-[40%] justify-between">
           <li className="px-2 text-[11px] invisible">
-          <a href="#" class="group transition duration-300">
-            ENGLISH
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <a href="#" class="group transition duration-300">
+              ENGLISH
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
           </li>
           <li className="px-2 text-[11px] relative">
             <a href="#" class="group transition duration-300">
-            ENGLISH
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              ENGLISH
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
             <ul className="hidden absolute top-[20px] right-0 w-full border-solid border-2 border-[#888]">
               <li className="px-2 py-1">ENGLISH</li>
@@ -76,33 +84,51 @@ const Navbar = () => {
             </ul>
           </li>
           <li className="px-2 text-[11px]">
-          <a href="#" class="group transition duration-300">
-            LOGIN
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <a href="#" class="group transition duration-300">
+              LOGIN
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
           </li>
           <li className="px-2 text-[11px]">
-          <a href="#" class="group transition duration-300">
-            WISHLIST
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <a href="#" class="group transition duration-300">
+              WISHLIST
+              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
           </li>
           <li className="px-2 text-[11px]">
-          <a href="#">
-            SHOPPING CART
-            <span>(0)</span>
+            <a href="#">
+              SHOPPING CART
+              <span>(0)</span>
             </a>
           </li>
         </ul>
 
-      <div className="min-w-[60px] flex justify-between lg:hidden">
-        <AiOutlineUser size={25}></AiOutlineUser>
-        <div className="flex relative">
-          <HiOutlineShoppingBag size={25}></HiOutlineShoppingBag>
-          <span className="text-[10px] absolute top-[35%] left-[39%]">0</span>
+        <div className="min-w-[60px] flex justify-between lg:hidden">
+          <AiOutlineUser size={25}></AiOutlineUser>
+          <div className="flex relative">
+            <HiOutlineShoppingBag size={25}></HiOutlineShoppingBag>
+            <span className="text-[10px] absolute top-[35%] left-[39%]">0</span>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+      {mobileMenu && <ul className="lg:hidden absolute bg-white w-full p-0">
+        <li className="pb-[25px] pl-9">
+          <a href="">MENSWEAR</a>
+        </li>
+        <li className="pb-[25px] pl-9">
+          <a href="">WOMENSWEAR</a>
+        </li>
+        <li className="pb-[25px] pl-9">
+          <a href="">EVERYTHING ELSE</a>
+        </li>
+        <li className="pb-[25px] pl-9">
+          <a href="">SHOPPING BAG</a>
+        </li>
+        <li className="pb-[25px] pl-9">
+          <a href="">LOGIN</a>
+        </li>
+      </ul>}
+    </div>
   );
 };
 
