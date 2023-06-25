@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   AiFillYoutube,
   AiOutlineInstagram,
@@ -6,6 +7,8 @@ import {
 
 import { FaFacebookF } from "react-icons/fa";
 const Footer = () => {
+  const [focusedInput, setFocusedInput] = useState(false);
+
   return (
     <div className="px-[42px]">
       <nav>
@@ -43,7 +46,7 @@ const Footer = () => {
             <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
         </ul>
-        <ul className="flex flex-col items-center">
+        <ul className="flex flex-col items-center lg:hidden">
           <h4 className="pb-2.5 text-xs">NEWSLETTER SIGNUP</h4>
           <p className="pb-5 text-xs">
             Sign up for email updates and promotions
@@ -53,36 +56,97 @@ const Footer = () => {
               type="email"
               placeholder="Email address"
               className="block w-full h-[30px] border-[0.8px] px-1.5 border-black focus:outline-none text-xs"
+              onFocus={() => setFocusedInput(true)}
             />
-            <div className="flex justify-between">
+            <div
+              className={`flex justify-between ${
+                focusedInput ? "block" : "hidden"
+              }`}
+            >
               <div>
-                <input type="radio" name="" id="menswear" />
-                <label id="menswear"> MENSWEAR</label>
+                <input type="radio" name="clothes-type" id="menswear" />
+                <label id="menswear" className="text-xs" name="clothes-type">
+                  {" "}
+                  MENSWEAR
+                </label>
               </div>
               <div>
-                <input type="radio" name="" id="" />
-                <label> WOMENSWEAR</label>
+                <input type="radio" name="clothes-type" id="" />
+                <label className="text-xs" name="clothes-type">
+                  {" "}
+                  WOMENSWEAR
+                </label>
               </div>
             </div>
-            <input type="submit" value="Subscribe" className="w-full border-[0.8px] bg-white h-[30px]"/>
+            <input
+              type="submit"
+              value="SUBSCRIBE"
+              className={`w-full h-[30px] border-black border-[0.8px] px-1.5 bg-white text-xs ${
+                focusedInput ? "block" : "hidden"
+              }`}
+            />
           </form>
         </ul>
       </nav>
 
-      <ul className="flex justify-between px-[80px] pt-4">
+      <ul className="hidden lg:flex justify-between px-[80px] pt-4 min-w-[650px]">
         <li className="text-[10px] text-[#888]">© 2023 ssense.com</li>
         <li className="text-[10px] text-[#888]">Terms and conditions</li>
         <li className="text-[10px] text-[#888]">Privacy Policy</li>
         <li className="text-[10px] text-[#888]">Cookies</li>
         <li className="text-[10px] text-[#888]">Accessibility</li>
 
-        <li className="flex">
-          <FaFacebookF> </FaFacebookF>
-          <AiOutlineTwitter />
-          <AiOutlineInstagram />
-          <AiFillYoutube />
+        <li className="flex w-[80px] justify-between">
+          <a href="https://www.facebook.com/SSENSEofficial">
+            <FaFacebookF />
+          </a>
+          <a href="https://twitter.com/ssense">
+            <AiOutlineTwitter />
+          </a>
+          <a href="https://www.instagram.com/ssense/">
+            <AiOutlineInstagram />
+          </a>
+          <a href="https://www.youtube.com/user/ssense">
+            <AiFillYoutube />
+          </a>
         </li>
       </ul>
+
+      <div className="lg:hidden flex w-[120px] justify-between m-auto pt-4">
+      <a href="https://www.facebook.com/SSENSEofficial">
+            <FaFacebookF />
+          </a>
+          <a href="https://twitter.com/ssense">
+            <AiOutlineTwitter />
+          </a>
+          <a href="https://www.instagram.com/ssense/">
+            <AiOutlineInstagram />
+          </a>
+          <a href="https://www.youtube.com/user/ssense">
+            <AiFillYoutube />
+          </a>
+      </div>
+
+      <div>
+        
+      <ul className="lg:hidden w-[300px] m-auto grid grid-cols-2">
+        <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">
+          Terms and conditions
+          <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+          </li>
+        <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">
+          Privacy Policy
+          <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+          </li>
+        <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">Cookies
+        <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+        </li>
+        <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">Accessibility
+        <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+        </li>
+        <li className="text-[10px] text-center text-[#888] py-3 col-span-2">© 2023 ssense.com</li>
+      </ul>
+      </div>        
     </div>
   );
 };

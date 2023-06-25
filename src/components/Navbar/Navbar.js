@@ -8,18 +8,36 @@ import {
 import { HiOutlineShoppingBag } from "react-icons/hi";
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
-  function menuHandlder(){
+  function menuHandlder() {
     setMobileMenu(!mobileMenu);
   }
   return (
     <div>
       <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
         <div className="w-[60px] flex justify-between lg:hidden">
-          <AiOutlineMenu size={25} onClick={menuHandlder} onMouseOver={() => {
-            
-          }}></AiOutlineMenu>
+          <AiOutlineMenu
+            size={25}
+            onClick={menuHandlder}
+            onMouseOver={(e) => {
+              e.currentTarget.style.cursor = "pointer";
+              // Add your additional mouseover logic here
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.cursor = "default";
+              // Add your additional mouseleave logic here
+            }}
+          ></AiOutlineMenu>
 
-          <AiOutlineSearch size={25}></AiOutlineSearch>
+          <AiOutlineSearch size={25}
+            onMouseOver={(e) => {
+              e.currentTarget.style.cursor = "pointer";
+              // Add your additional mouseover logic here
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.cursor = "default";
+              // Add your additional mouseleave logic here
+            }}
+          ></AiOutlineSearch>
         </div>
 
         <ul className="hidden lg:flex w-[40%] justify-between min-w-[450px]">
@@ -111,23 +129,25 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-      {mobileMenu && <ul className="lg:hidden absolute bg-white w-full p-0">
-        <li className="pb-[25px] pl-9">
-          <a href="">MENSWEAR</a>
-        </li>
-        <li className="pb-[25px] pl-9">
-          <a href="">WOMENSWEAR</a>
-        </li>
-        <li className="pb-[25px] pl-9">
-          <a href="">EVERYTHING ELSE</a>
-        </li>
-        <li className="pb-[25px] pl-9">
-          <a href="">SHOPPING BAG</a>
-        </li>
-        <li className="pb-[25px] pl-9">
-          <a href="">LOGIN</a>
-        </li>
-      </ul>}
+      {mobileMenu && (
+        <ul className="lg:hidden absolute bg-white w-full p-0">
+          <li className="pb-[25px] pl-9">
+            <a href="">MENSWEAR</a>
+          </li>
+          <li className="pb-[25px] pl-9">
+            <a href="">WOMENSWEAR</a>
+          </li>
+          <li className="pb-[25px] pl-9">
+            <a href="">EVERYTHING ELSE</a>
+          </li>
+          <li className="pb-[25px] pl-9">
+            <a href="">SHOPPING BAG</a>
+          </li>
+          <li className="pb-[25px] pl-9">
+            <a href="">LOGIN</a>
+          </li>
+        </ul>
+      )}
     </div>
   );
 };
