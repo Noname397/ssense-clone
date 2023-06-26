@@ -6,15 +6,16 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
+import SearchBar from "./SearchBar/SearchBar";
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   function menuHandlder() {
     setMobileMenu(!mobileMenu);
   }
   return (
-    <div>
+    <div className="fixed top-0 left-0 w-full">
       <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
-        <div className="w-[60px] flex justify-between lg:hidden">
+        <div className="grid grid-cols-2 gap-x-1 lg:hidden">
           <AiOutlineMenu
             size={25}
             onClick={menuHandlder}
@@ -28,7 +29,8 @@ const Navbar = () => {
             }}
           ></AiOutlineMenu>
 
-          <AiOutlineSearch size={25}
+          <AiOutlineSearch
+            size={25}
             onMouseOver={(e) => {
               e.currentTarget.style.cursor = "pointer";
               // Add your additional mouseover logic here
@@ -38,6 +40,7 @@ const Navbar = () => {
               // Add your additional mouseleave logic here
             }}
           ></AiOutlineSearch>
+          <SearchBar />
         </div>
 
         <ul className="hidden lg:flex w-[40%] justify-between min-w-[450px]">

@@ -89,7 +89,7 @@ const Footer = () => {
         </ul>
       </nav>
 
-      <ul className="hidden lg:flex justify-between px-[80px] pt-4 min-w-[650px]">
+      <ul className="hidden lg:flex justify-between px-[100px] pt-4 min-w-[650px]">
         <li className="text-[10px] text-[#888]">© 2023 ssense.com</li>
         <li className="text-[10px] text-[#888]">Terms and conditions</li>
         <li className="text-[10px] text-[#888]">Privacy Policy</li>
