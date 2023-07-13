@@ -4,9 +4,9 @@ import {
     AiOutlineShopping,
     AiOutlineUser,
   } from "react-icons/ai";
-const SearchBar = () => {
+const SearchBar = (props) => {
   return (
-    <div className="absolute top-[55px] left-0 w-full px-9 py-3 bg-white">
+    <div className="w-full px-9 py-3 bg-white">
       <div className="flex justify-between top-0 left-0 w-[300px]">
         <a href="" className="text-xs">MENSWEAR</a>
         <a href="" className="text-xs">WOMENSWEAR</a>
@@ -17,7 +17,7 @@ const SearchBar = () => {
             <input type="text"  className="focus:outline-none h-full w-full" placeholder="Search" />
             <AiOutlineSearch className="h-full"> </AiOutlineSearch>
         </div>
-        <button className="text-sm px-1">CLOSE</button>
+        <button className="text-sm px-1" onClick={props.handler}>CLOSE</button>
       </div>
       <div className="py-2 flex items-center">
         <input type="checkbox" name="sales" id="sales" />

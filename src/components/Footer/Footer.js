@@ -66,14 +66,12 @@ const Footer = () => {
               <div>
                 <input type="radio" name="clothes-type" id="menswear" />
                 <label id="menswear" className="text-xs" name="clothes-type">
-                  {" "}
                   MENSWEAR
                 </label>
               </div>
               <div>
                 <input type="radio" name="clothes-type" id="" />
                 <label className="text-xs" name="clothes-type">
-                  {" "}
                   WOMENSWEAR
                 </label>
               </div>
