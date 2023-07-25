@@ -1,37 +1,65 @@
-import { createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState,useContext,createContext,useEffect } from 'react';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  fetchSignInMethodsForEmail
+} from 'firebase/auth'
+import { auth } from "../configs/firebase-config";
 
-export const AuthContext = createContext();
+const UserContext = createContext();
 
-export const AuthProvider = (props) => {
-    const navigate = useNavigate();
-    const [user,setUser] = useState(null);
+export const AuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-    const login = (userData) => {
-        setUser(userData);
-        console.log("AHIHI");
-        window.localStorage.setItem('userInfo',JSON.stringify(userData));
-        navigate("/");
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+   const login = (email, password) =>  {
+    return signInWithEmailAndPassword(auth, email, password);
+   }
+
+  const logout = () => {
+      return signOut(auth);
+  }
+
+  const isEmailRegistered = async (email) => {
+    try {
+      const userCredential = await fetchSignInMethodsForEmail(auth, email);
+      return userCredential.length > 0;
+    } catch (error) {
+      console.error('Error checking email:', error);
+      return false;
     }
+  };
 
-    const logout = () => {
-        console.log(user)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
         setUser(null);
-        window.localStorage.removeItem('userInfo');
-        console.log("Logging out");
-        navigate('/');
-    }
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
-    const authContextValue = [
-        user,
-        setUser,
-        login,
-        logout,
-    ];
-    
-      return (
-        <AuthContext.Provider value={authContextValue}>
-          {props.children}
-        </AuthContext.Provider>
-      );
-}
+  const isAuthenticated = () => {
+    console.log(user);
+    return user !== null;
+  }
+  
+  return (
+    <UserContext.Provider value={{ createUser, user, setUser, logout, login, isAuthenticated, isEmailRegistered }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+
+export const UserAuth = () => {
+  return useContext(UserContext);
+};

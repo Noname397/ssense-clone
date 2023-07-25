@@ -10,43 +10,16 @@ export const Products = () => {
       brand: "Balenciaga",
       name: "Tortoiseshell 90s Sunglasses",
       price: 545,
-      imgLink: "https://img.ssensemedia.com/images/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_480/f_auto,q_auto/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg"
-    },
-    {
-      brand: "Balenciaga",
-      name: "Tortoiseshell 90s Sunglasses",
-      price: 545,
-      imgLink: "https://img.ssensemedia.com/images/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_480/f_auto,q_auto/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg"
-    },
-    {
-      brand: "Balenciaga",
-      name: "Tortoiseshell 90s Sunglasses",
-      price: 545,
-      imgLink: "https://img.ssensemedia.com/images/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_480/f_auto,q_auto/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg"
-    },
-    {
-      brand: "Balenciaga",
-      name: "Tortoiseshell 90s Sunglasses",
-      price: 545,
-      imgLink: "https://img.ssensemedia.com/images/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_480/f_auto,q_auto/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg"
-    },
-    {
-      brand: "Balenciaga",
-      name: "Tortoiseshell 90s Sunglasses",
-      price: 545,
-      imgLink: "https://img.ssensemedia.com/images/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_480/f_auto,q_auto/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg"
-    },
-    {
-      brand: "Balenciaga",
-      name: "Tortoiseshell 90s Sunglasses",
-      price: 545,
-      imgLink: "https://img.ssensemedia.com/images/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_480/f_auto,q_auto/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg"
-    },
-    {
-      brand: "Balenciaga",
-      name: "Tortoiseshell 90s Sunglasses",
-      price: 545,
-      imgLink: "https://img.ssensemedia.com/images/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_480/f_auto,q_auto/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg"
+      description: 'Oval bio-acetate-frame sunglasses in tortoiseshell.',
+      attribute: ['Brown lenses with 100% UVA/UVB protection','Integrated nose pads','Logo engraved at temple','Hardside case included','Size: 83.15 120'],
+      supplierColor: 'Havana brown',
+      imgPreview:
+        "https://img.ssensemedia.com/images/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_480/f_auto,q_auto/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg",
+      imgLinks:[
+        "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/232342M134094_1/balenciaga-tortoiseshell-90s-sunglasses.jpg",
+        "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/232342M134094_2/balenciaga-tortoiseshell-90s-sunglasses.jpg",
+        "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/232342M134094_3/balenciaga-tortoiseshell-90s-sunglasses.jpg",
+        "https://img.ssensemedia.com/images/b_white,g_center,f_auto,q_auto:best/232342M134094_4/balenciaga-tortoiseshell-90s-sunglasses.jpg"]
     },
   ];
   return (
@@ -59,7 +32,18 @@ export const Products = () => {
         <div className="col-span-4">
           <div className="grid grid-cols-4 gap-y-[30px] gap-x-[10px]">
             {products.map((product) => {
-              return <ProductCard brand={product.brand} name={product.name} price={product.price} imgLink={product.imgLink}></ProductCard>;
+              return (
+                <ProductCard
+                  brand={product.brand}
+                  name={product.name}
+                  price={product.price}
+                  description= {product.description}
+                  attribute={product.attribute}
+                  supplierColor={product.supplierColor}
+                  imgPreview={product.imgPreview}
+                  imgLinks={product.imgLinks}
+                ></ProductCard>
+              );
             })}
           </div>
         </div>

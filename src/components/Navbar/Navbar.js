@@ -8,13 +8,9 @@ import {
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import SearchBar from "./SearchBar/SearchBar";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
+import { UserAuth } from "../../contexts/AuthContext";
 const Navbar = () => {
-  const [user, setUser, login, logout] = useContext(AuthContext);
-  useEffect(() => {
-    const userData = window.localStorage.getItem("userInfo");
-    setUser(JSON.parse(userData));
-  }, []);
+  const {user, setUser, login, logout} = UserAuth();
   const [mobileMenu, setMobileMenu] = useState(false);
   function menuHandlder() {
     setMobileMenu(!mobileMenu);
@@ -139,6 +135,7 @@ const Navbar = () => {
                 <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
               </Link>
             )}
+            
           </li>
           <li className="px-2 text-[11px]">
             <a href="#" class="group">

@@ -5,7 +5,7 @@ export const ProductCard = (product) => {
             state={product}
         className="col-span-1">
             <div>
-                <img src={product.imgLink} alt="" />
+                <img src={product.imgPreview} alt="" />
             </div>
             <div className="text-xs uppercase">
                 {product.brand}

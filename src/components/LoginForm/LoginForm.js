@@ -1,44 +1,49 @@
 import styled from "styled-components";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "./firebase-config";
+import { auth } from "../../configs/firebase-config";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
+import { UserAuth } from "../../contexts/AuthContext";
 export const LoginForm = () => {
-  const [user, setUser, login, logout] = useContext(AuthContext);
+  const { setUser, login, createUser, logout, isEmailRegistered } = UserAuth();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [page, setPage] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const doesEmailExist = async () => {
+  const storeUser = (user) => {
+    window.localStorage.setItem("user", JSON.stringify(user));
+  };
+  const handleEmail = async () => {
     try {
-      await fetchSignInMethodsForEmail(auth, email).then((result) => {
-        if (result.length > 0) {
-          // it is true when the array has length of 1 and has value of 'password'
-          setPage(1);
-        } else {
-          setPage(2);
-        }
-      });
+      console.log(email);
+      const result = await isEmailRegistered(email);
+      console.log(result);
+      if (result) {
+        setPage(1);
+      }
+      if (!result) {
+        setPage(2);
+      }
     } catch (error) {
       if (error.code === "auth/invalid-email") {
         setErrorMessage("Invalid email address");
       } else {
-        console.log(error)
+        console.log(error);
         setErrorMessage("An error occurred. Please try again.");
       }
     }
   };
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
-      login(user);
+      const user = await createUser(email, password);
+      console.log(user.user);
+      storeUser(user.user);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -46,14 +51,15 @@ export const LoginForm = () => {
 
   const signin = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
-      login(user);
+      const user = await login(email, password);
+      console.log(user.user);
+      storeUser(user.user);
+      navigate("/");
     } catch (error) {
       if (error.code === "auth/wrong-password") {
         setErrorMessage("Invalid credentials");
       } else {
-        console.log(error)
+        console.log(error);
         setErrorMessage("An error occurred. Please try again.");
       }
     }
@@ -63,7 +69,13 @@ export const LoginForm = () => {
     <FormContainer>
       <Form>
         {page == 0 && (
-          <>
+          <div
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleEmail();
+              }
+            }}
+          >
             <div>
               <h1 className="m-0 text-[11px] leading-snug font-normal mb-[15px]">
                 LOGIN OR CREATE ACCOUNT
@@ -88,16 +100,22 @@ export const LoginForm = () => {
             </div>
 
             <button
-              onClick={doesEmailExist}
+              onClick={handleEmail}
               className="block w-full min-h-[35px] min-w-[140px] text-[11px] text-center uppercase border bg-black text-white"
             >
               Continue
             </button>
-          </>
+          </div>
         )}
         {page == 1 && (
           <>
-            <div>
+            <div
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  signin();
+                }
+              }}
+            >
               <h1 className="m-0 text-[11px] leading-snug font-normal mb-[15px]">
                 LOGIN
               </h1>
@@ -126,10 +144,7 @@ export const LoginForm = () => {
             </div>
 
             <button
-              onClick={() => {
-                setErrorMessage('');
-                signin();
-              }}
+              onClick={signin}
               className="block w-full min-h-[35px] min-w-[140px] text-[11px] text-center uppercase border bg-black text-white"
             >
               Continue
@@ -158,7 +173,13 @@ export const LoginForm = () => {
         )}
         {page == 2 && (
           <>
-            <>
+            <div
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  register();
+                }
+              }}
+            >
               <div>
                 <h1 className="m-0 text-[11px] leading-snug font-normal mb-[15px]">
                   CREATE AN ACCOUNT
@@ -181,6 +202,11 @@ export const LoginForm = () => {
                 type="password"
                 placeholder={password}
                 onChange={(event) => setPassword(event.target.value)}
+                // onKeyDown={(e) => {
+                //   if (e.key === "Enter") {
+                //     register();
+                //   }
+                // }}
               />
               <button
                 onClick={register}
@@ -197,7 +223,7 @@ export const LoginForm = () => {
               >
                 Back
               </button>
-            </>
+            </div>
           </>
         )}
 

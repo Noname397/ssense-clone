@@ -1,21 +1,14 @@
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { useContext, useEffect, useState } from "react";
+import { UserAuth } from "../contexts/AuthContext";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
+import { AccountDetails } from "../components/Account/AccountDetails";
 export const Account = () => {
-  const [user, setUser, login, logout] = useContext(AuthContext);
-  useEffect(() => {
-    const userData = window.localStorage.getItem("userInfo");
-    setUser(JSON.parse(userData));
-  }, []);
-
+  const { user, setUser, login, logout } = UserAuth();
   return (
     <div className="pt-[55px]">
       <Navbar></Navbar>
-      <div>
-        <div>Welcome {user.user.email}</div>
-        <button onClick={logout}> Log out</button>
-      </div>
+      <AccountDetails user={user}></AccountDetails>
       <Footer></Footer>
     </div>
   );

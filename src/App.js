@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import { Account } from "./pages/Account";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthContextProvider } from "./contexts/AuthContext";
 import { Menswear } from "./pages/Menswear";
 import { Womenswear } from "./pages/Womenswear";
 import { Everythingelse } from "./pages/Everythingelse";
@@ -14,7 +14,7 @@ import { ProductDetails } from "./components/Products/ProductDetails";
 function App() {
   return (
     <Router>
-      <AuthProvider>
+      <AuthContextProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -25,7 +25,7 @@ function App() {
           <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
           <Route path="/product/:brand/:name" element={<ProductDetails />}></Route>
         </Routes>
-      </AuthProvider>
+      </AuthContextProvider>
     </Router>
   );
 }
