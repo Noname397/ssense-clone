@@ -15,35 +15,35 @@ const Footer = () => {
         <ul className="hidden lg:flex lg:justify-between">
           <li className="text-xs group transition duration-300">
             <a href="">COUNTRY/REGION: VIETNAM</a>
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
           <li className="text-xs group transition duration-300">
             <a href="">NEWSLETTER SIGNUP</a>
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
           <li className="text-xs group transition duration-300">
             <a href="">CUSTOMER CARE</a>
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
           <li className="text-xs group transition duration-300">
             <a href="">LOCATION</a>
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
           <li className="text-xs group transition duration-300">
             <a href="">EDITORIAL ARCHIVE</a>
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
           <li className="text-xs group transition duration-300">
             <a href="">CAREERS</a>
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
           <li className="text-xs group transition duration-300">
             <a href="">AFFILIATES</a>
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
           <li className="text-xs group transition duration-300">
             <a href="">SITEMAPS</a>
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
         </ul>
         <ul className="flex flex-col items-center lg:hidden">
@@ -111,40 +111,43 @@ const Footer = () => {
       </ul>
 
       <div className="lg:hidden flex w-[120px] justify-between m-auto pt-4">
-      <a href="https://www.facebook.com/SSENSEofficial">
-            <FaFacebookF />
-          </a>
-          <a href="https://twitter.com/ssense">
-            <AiOutlineTwitter />
-          </a>
-          <a href="https://www.instagram.com/ssense/">
-            <AiOutlineInstagram />
-          </a>
-          <a href="https://www.youtube.com/user/ssense">
-            <AiFillYoutube />
-          </a>
+        <a href="https://www.facebook.com/SSENSEofficial">
+          <FaFacebookF />
+        </a>
+        <a href="https://twitter.com/ssense">
+          <AiOutlineTwitter />
+        </a>
+        <a href="https://www.instagram.com/ssense/">
+          <AiOutlineInstagram />
+        </a>
+        <a href="https://www.youtube.com/user/ssense">
+          <AiFillYoutube />
+        </a>
       </div>
 
       <div>
-        
-      <ul className="lg:hidden w-[300px] m-auto grid grid-cols-2">
-        <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">
-          Terms and conditions
-          <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+        <ul className="lg:hidden w-[300px] m-auto grid grid-cols-2">
+          <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">
+            Terms and conditions
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
-        <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">
-          Privacy Policy
-          <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+          <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">
+            Privacy Policy
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
           </li>
-        <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">Cookies
-        <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-        </li>
-        <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">Accessibility
-        <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-        </li>
-        <li className="text-[10px] text-center text-[#888] py-3 col-span-2">© 2023 ssense.com</li>
-      </ul>
-      </div>        
+          <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">
+            Cookies
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+          </li>
+          <li className="text-[10px] text-center text-[#888] py-3 group transition duration-300">
+            Accessibility
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+          </li>
+          <li className="text-[10px] text-center text-[#888] py-3 col-span-2">
+            © 2023 ssense.com
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

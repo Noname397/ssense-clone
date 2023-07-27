@@ -7,6 +7,7 @@ import src3 from '../../assets/cardnews3.jpg'
 import src4 from '../../assets/cardnews4.jpg'
 import src5 from '../../assets/cardnews5.jpg'
 import Recentcard from './Recentcard/Recentcard'
+import { Link } from 'react-router-dom'
 
 const Mainpage = () => {
     const newCardItems = [
@@ -53,8 +54,8 @@ const Mainpage = () => {
     <div className="mt-[55px] px-4 sm:px-9">
         <img src={promotion} className='w-full px-9' alt="" />
         <div className='grid grid-cols-2 text-center mb-5'>
-            <a href="" className='text-1.2rem sm:text-[1.7rem] md:text-[2.4rem] lg:text-[3.1rem]'>SHOP MEN</a>
-            <a href="" className='text-1.2rem sm:text-[1.7rem] md:text-[2.4rem] lg:text-[3.1rem]'>SHOP WOMEN</a>
+            <Link to="/men" className='text-1.2rem sm:text-[1.7rem] md:text-[2.4rem] lg:text-[3.1rem]'>SHOP MEN</Link>
+            <Link to className='text-1.2rem sm:text-[1.7rem] md:text-[2.4rem] lg:text-[3.1rem]'>SHOP WOMEN</Link>
         </div>
 
         <div className='grid md:grid-cols-2 grid-cols-1 gap-8 mb-5'>

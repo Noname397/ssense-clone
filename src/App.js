@@ -10,21 +10,26 @@ import { Womenswear } from "./pages/Womenswear";
 import { Everythingelse } from "./pages/Everythingelse";
 import { ShoppingCart } from "./pages/ShoppingCart";
 import { ProductDetails } from "./components/Products/ProductDetails";
-
+import { ProductContextProvider } from "./contexts/ProductContext";
 function App() {
   return (
     <Router>
       <AuthContextProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/men" element={<Menswear />} />
-          <Route path="/women" element={<Womenswear />} />
-          <Route path="/everything-else" element={<Everythingelse />} />
-          <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
-          <Route path="/product/:brand/:name" element={<ProductDetails />}></Route>
-        </Routes>
+        <ProductContextProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/men" element={<Menswear />} />
+            <Route path="/women" element={<Womenswear />} />
+            <Route path="/everything-else" element={<Everythingelse />} />
+            <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
+            <Route
+              path="/product/:brand/:name"
+              element={<ProductDetails />}
+            ></Route>
+          </Routes>
+        </ProductContextProvider>
       </AuthContextProvider>
     </Router>
   );

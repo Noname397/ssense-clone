@@ -50,27 +50,27 @@ const Navbar = () => {
 
         <ul className="hidden lg:flex w-[40%] justify-between min-w-[450px] relative">
           <li className="px-2 text-[11px]">
-            <Link to="/men" class="group">
+            <Link to="/men" className="group">
               MENSWEAR
-              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </Link>
           </li>
           <li className="px-2 text-[11px]">
-            <Link to="/women" class="group">
+            <Link to="/women" className="group">
               WOMENSWEAR
-              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </Link>
           </li>
           <li className="px-2 text-[11px] invisible md:visible">
-            <Link to="/everything-else" class="group">
+            <Link to="/everything-else" className="group">
               EVERYTHING ELSE
-              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </Link>
           </li>
           <li className="px-2 text-[11px]">
-            <Link onClick={searchHandler} class="group">
+            <Link onClick={searchHandler} className="group">
               SEARCH
-              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </Link>
             {searchMenu && (
               <div
@@ -88,9 +88,9 @@ const Navbar = () => {
             )}
           </li>
           <li className="px-2 text-[11px] invisible xl:visible">
-            <a href="#" class="group">
+            <a href="#" className="group">
               SALES
-              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
           </li>
         </ul>
@@ -105,15 +105,15 @@ const Navbar = () => {
 
         <ul className="hidden lg:flex w-[40%] justify-between">
           <li className="px-2 text-[11px] invisible">
-            <a href="#" class="transition">
+            <a href="#" className="transition">
               ENGLISH
-              <span class="block max-w-0 hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              <span className="block max-w-0 hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
           </li>
           <li className="px-2 text-[11px] relative">
-            <a href="#" class="group">
+            <a href="#" className="group">
               ENGLISH
-              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
             <ul className="hidden absolute top-[20px] right-0 w-full border-solid border-2 border-[#888]">
               <li className="px-2 py-1">ENGLISH</li>
@@ -125,22 +125,22 @@ const Navbar = () => {
           </li>
           <li className="px-2 text-[11px]">
             {!user ? (
-              <Link to="/login" class="group">
+              <Link to="/login" className="group">
                 LOGIN
-                <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
               </Link>
             ) : (
               <Link to="/account" className="group uppercase">
                 Account
-                <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
               </Link>
             )}
             
           </li>
           <li className="px-2 text-[11px]">
-            <a href="#" class="group">
+            <a href="#" className="group">
               WISHLIST
-              <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </a>
           </li>
           <li className="px-2 text-[11px]">
