@@ -18,9 +18,9 @@ export const ProductDetails = () => {
             <div className="text-xs">{product?.name}</div>
             <div className="text-xs">
               {product?.description}
-              {product?.attribute.map((item) => {
+              {product?.attributes.length > 0 ? product?.attributes.map((item) => {
                 return <li className="text-xs">{item}</li>;
-              })}
+              }) : null}
               <p>
                 {product?.supplierColor
                   ? "Supplier color: " + product?.supplierColor
@@ -90,9 +90,9 @@ export const ProductDetails = () => {
             <h3 className="uppercase">Item info</h3>
             <h4>
               {product?.description}
-              {product?.attribute.map((item) => {
+              {product?.attributes.length > 0 ? product?.attributes.map((item) => {
                 return <li className="text-xs">{item}</li>;
-              })}
+              }) : null}
             </h4>
             <p>{"Supplier color: " + product?.supplierColor}</p>
           </div>

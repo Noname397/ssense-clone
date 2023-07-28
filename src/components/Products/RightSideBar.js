@@ -5,12 +5,6 @@ export const RightSideBar = () => {
         <h2 className="font-bold uppercase text-xs my-[10px]">Sort</h2>
         <ul>
           <li>
-            <h3 className="text-xs capitalize mb-[2px]">Latest arrival</h3>
-          </li>
-          <li>
-            <h3 className="text-xs capitalize mb-[2px]">Trends</h3>
-          </li>
-          <li>
             <h3 className="text-xs mb-[2px]">Price: Low to High</h3>
           </li>
           <li>

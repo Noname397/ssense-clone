@@ -1,17 +1,6 @@
 export const LeftSideBar = () => {
   return (
     <div>
-      <div className="flex justify-start items-center mb-[35px]">
-        <input
-          type="checkbox"
-          name=""
-          id="sales"
-          className="mr-[5px] cursor-pointer"
-        />
-        <label htmlFor="sales" className="text-xs uppercase">
-          Sales only
-        </label>
-      </div>
       <div>
         <h2 className="font-bold uppercase text-xs my-[10px]">
           All categories

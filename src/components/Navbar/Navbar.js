@@ -48,16 +48,10 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <ul className="hidden lg:flex w-[40%] justify-between min-w-[450px] relative">
+        <ul className="hidden lg:flex w-[40%] justify-between relative">
           <li className="px-2 text-[11px]">
-            <Link to="/men" className="group">
-              MENSWEAR
-              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-            </Link>
-          </li>
-          <li className="px-2 text-[11px]">
-            <Link to="/women" className="group">
-              WOMENSWEAR
+            <Link to="/products" className="group">
+              PRODUCTS
               <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </Link>
           </li>
@@ -87,7 +81,7 @@ const Navbar = () => {
               </div>
             )}
           </li>
-          <li className="px-2 text-[11px] invisible xl:visible">
+          <li className="px-2 text-[11px]">
             <a href="#" className="group">
               SALES
               <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
@@ -104,12 +98,6 @@ const Navbar = () => {
         </Link>
 
         <ul className="hidden lg:flex w-[40%] justify-between">
-          <li className="px-2 text-[11px] invisible">
-            <a href="#" className="transition">
-              ENGLISH
-              <span className="block max-w-0 hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-            </a>
-          </li>
           <li className="px-2 text-[11px] relative">
             <a href="#" className="group">
               ENGLISH
