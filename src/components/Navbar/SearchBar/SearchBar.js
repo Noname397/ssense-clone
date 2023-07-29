@@ -14,13 +14,13 @@ const SearchBar = (props) => {
       </div>
       <div className="pt-2 flex">
         <div className="border border-black flex items-center px-2 h-[41px] w-full">
-            <input type="text"  className="focus:outline-none h-full w-full" placeholder="Search" />
+            <input type="text"  className="focus:outline-none focus:border-none focus:ring-0 border-none h-full w-full" placeholder="Search" />
             <AiOutlineSearch className="h-full"> </AiOutlineSearch>
         </div>
         <button className="text-sm px-1" onClick={props.handler}>CLOSE</button>
       </div>
       <div className="py-2 flex items-center">
-        <input type="checkbox" name="sales" id="sales" />
+        <input type="checkbox" name="sales" id="sales" className="checked:text-black checked:hover:text-black focus:text-black focus:outline-none focus:ring-1 focus:ring-black checked:focus:text-black checked:active:text-black" />
         <label className="text-xs" htmlFor="sales">SALES ONLY</label>
       </div>
     </div>

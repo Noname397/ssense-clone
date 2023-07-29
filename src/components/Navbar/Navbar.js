@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useMemo } from "react";
 import {
   AiOutlineMenu,
   AiOutlineSearch,
@@ -9,8 +9,20 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import SearchBar from "./SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../../contexts/AuthContext";
+import { UserCart } from "../../contexts/CartContext";
 const Navbar = () => {
-  const {user, setUser, login, logout} = UserAuth();
+  const { user, setUser, login, logout } = UserAuth();
+  const { totalItems } = UserCart();
+  // const [totalItems, setTotalItems] = useState(0);
+  // useEffect(() => {
+  //   setTotalItems(
+  //     cart
+  //       .map((item) => item.quantity)
+  //       .reduce((accumulator, currentValue) => {
+  //         return accumulator + currentValue;
+  //       }, 0)
+  //   );
+  // }, [cart]);
   const [mobileMenu, setMobileMenu] = useState(false);
   function menuHandlder() {
     setMobileMenu(!mobileMenu);
@@ -25,7 +37,7 @@ const Navbar = () => {
         <div className="grid grid-cols-2 gap-x-1 lg:hidden">
           <Link>
             <AiOutlineMenu
-              size={25}
+              size={30}
               onClick={() => {
                 setSearchMenu(false);
                 menuHandlder();
@@ -34,7 +46,7 @@ const Navbar = () => {
           </Link>
           <Link>
             <AiOutlineSearch
-              size={25}
+              size={30}
               onClick={() => {
                 setMobileMenu(false);
                 searchHandler();
@@ -123,7 +135,6 @@ const Navbar = () => {
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
               </Link>
             )}
-            
           </li>
           <li className="px-2 text-[11px]">
             <a href="#" className="group">
@@ -132,20 +143,24 @@ const Navbar = () => {
             </a>
           </li>
           <li className="px-2 text-[11px]">
-            <a href="#">
+            <Link to="/shopping-cart">
               SHOPPING CART
-              <span>(0)</span>
-            </a>
+              <span>({totalItems})</span>
+            </Link>
           </li>
         </ul>
 
         <div className="min-w-[60px] flex justify-between lg:hidden">
           <Link to="/account">
-            <AiOutlineUser size={25}></AiOutlineUser>
+            <AiOutlineUser size={30}></AiOutlineUser>
           </Link>
           <Link to="/shopping-cart" className="flex relative">
-            <HiOutlineShoppingBag size={25}></HiOutlineShoppingBag>
-            <span className="text-[10px] absolute top-[35%] left-[39%]">0</span>
+            <HiOutlineShoppingBag size={30}></HiOutlineShoppingBag>
+            <div className="absolute top-[12px] left-[9px] flex items-start justify-center w-3 ">
+              <span className="text-[10px]">
+                {totalItems}
+              </span>
+            </div>
           </Link>
         </div>
       </header>

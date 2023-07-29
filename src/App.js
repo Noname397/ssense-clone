@@ -9,13 +9,13 @@ import { AllProducts } from "./pages/AllProducts";
 import { Everythingelse } from "./pages/Everythingelse";
 import { ShoppingCart } from "./pages/ShoppingCart";
 import { ProductDetails } from "./components/Products/ProductDetails";
-import { ProductContextProvider } from "./contexts/ProductContext";
 import { NewProduct } from "./pages/NewProduct";
+import { CartContextProvider } from "./contexts/CartContext";
 function App() {
   return (
     <Router>
       <AuthContextProvider>
-        <ProductContextProvider>
+        <CartContextProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -29,7 +29,7 @@ function App() {
             ></Route>
             <Route path="/new-product" element={<NewProduct />} />
           </Routes>
-        </ProductContextProvider>
+        </CartContextProvider>
       </AuthContextProvider>
     </Router>
   );

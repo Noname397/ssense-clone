@@ -14,7 +14,7 @@ export const RightSideBar = () => {
       </div>
       <div className="flex flex-col items-end">
         <h2 className="font-bold uppercase text-xs my-[10px]">Colors</h2>
-        <input type="text" className="w-[70%] border outline-none text-xs" />
+        <input type="text" className="w-[70%] border-black focus:border-black focus:ring-0 text-xs" />
       </div>
     </div>
   );

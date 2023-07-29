@@ -22,7 +22,7 @@ export const LeftSideBar = () => {
       </div>
       <div>
         <h2 className="font-bold uppercase text-xs my-[10px]">All designers</h2>
-        <input type="text" className="w-[90%] border outline-none text-xs"/>
+        <input type="text" className="w-[90%] border-black text-xs focus:border-black focus:ring-0"/>
       </div>
     </div>
   );

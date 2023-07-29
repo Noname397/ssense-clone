@@ -53,10 +53,6 @@ const Mainpage = () => {
     return (
     <div className="mt-[55px] px-4 sm:px-9">
         <img src={promotion} className='w-full px-9' alt="" />
-        <div className='grid grid-cols-2 text-center mb-5'>
-            <Link to="/men" className='text-1.2rem sm:text-[1.7rem] md:text-[2.4rem] lg:text-[3.1rem]'>SHOP MEN</Link>
-            <Link to className='text-1.2rem sm:text-[1.7rem] md:text-[2.4rem] lg:text-[3.1rem]'>SHOP WOMEN</Link>
-        </div>
 
         <div className='grid md:grid-cols-2 grid-cols-1 gap-8 mb-5'>
             <Newscard
