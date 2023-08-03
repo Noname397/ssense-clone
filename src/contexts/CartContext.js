@@ -6,7 +6,7 @@ const CartContext = createContext();
 export const CartContextProvider = ({ children }) => {
   const { user } = UserAuth();
   const [cart, setCart] = useState(
-    JSON.parse(localStorage.getItem("cart")) || []
+    JSON.parse(localStorage.getItem("")) ||JSON.parse(localStorage.getItem("cart")) || []
   );
 
   function deepCompare(obj1, obj2) {

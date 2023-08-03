@@ -8,6 +8,8 @@ import {
 import { auth } from "../../configs/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../../contexts/AuthContext";
+import { realtimeDatabase } from "../../configs/firebase-config";
+import { onValue, ref, set } from "firebase/database";
 export const LoginForm = () => {
   const { setUser, login, createUser, logout, isEmailRegistered } = UserAuth();
   const navigate = useNavigate();
@@ -15,8 +17,36 @@ export const LoginForm = () => {
   const [page, setPage] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const minCharacter = 6;
   const storeUser = (user) => {
     window.localStorage.setItem("user", JSON.stringify(user));
+  };
+  const initiateUserDataBase = (userUID) => {
+    // const obj = {
+    //   orderHistory: [],
+    //   firstName: "",
+    //   lastName: "",
+    //   email: email,
+    //   emailPreference: {
+    //     newsletterSubscription: false,
+    //     language: "English",
+    //     country: "Canada",
+    //     emailNotification: false,
+    //   },
+    //   addresses: [],
+    // };
+    const userDatabaseRef = ref(realtimeDatabase, `users/${userUID}`);
+    set(userDatabaseRef, {
+      firstName: "",
+      lastName: "",
+      email: email,
+      emailPreference: {
+        newsletterSubscription: false,
+        language: "English",
+        country: "Canada",
+        emailNotification: false,
+      },
+    });
   };
   const handleEmail = async () => {
     try {
@@ -43,18 +73,25 @@ export const LoginForm = () => {
       const user = await createUser(email, password);
       console.log(user.user);
       storeUser(user.user);
+      initiateUserDataBase(user.user.uid)
       navigate("/");
     } catch (error) {
-      console.log(error);
+      if (error.code === "auth/weak-password"){
+        setErrorMessage("Password must be at least 6 characters long");
+      } 
     }
   };
 
   const signin = async () => {
     try {
+      // if (password.length > minCharacter) {
       const user = await login(email, password);
       console.log(user.user);
       storeUser(user.user);
       navigate("/");
+      // } else {
+      //   setErrorMessage(`Password must be at least ${minCharacter} characters long`)
+      // }
     } catch (error) {
       if (error.code === "auth/wrong-password") {
         setErrorMessage("Invalid credentials");
@@ -198,7 +235,7 @@ export const LoginForm = () => {
                 Password
               </h2>
               <input
-                className="w-full border border-black h-[30px] mb-[25px] px-[6px] focus:outline-none text-[11px]"
+                className="w-full border border-black h-[30px] px-[6px] focus:outline-none text-[11px]"
                 type="password"
                 placeholder={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -208,15 +245,19 @@ export const LoginForm = () => {
                 //   }
                 // }}
               />
+              {errorMessage && (
+                <p className="text-[11px] text-red-600">{errorMessage}</p>
+              )}
               <button
                 onClick={register}
-                className="block w-full min-h-[35px] min-w-[140px] text-[11px] text-center uppercase border bg-black text-white"
+                className="block w-full min-h-[35px] min-w-[140px] mt-[25px] text-[11px] text-center uppercase border bg-black text-white"
               >
                 Create an account
               </button>
               <button
                 onClick={() => {
                   setEmail("");
+                  setErrorMessage("")
                   setPage(0);
                 }}
                 className="block w-full min-h-[35px] min-w-[140px] text-[11px] text-center uppercase"

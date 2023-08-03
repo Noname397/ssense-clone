@@ -1,15 +1,19 @@
-export const RightSideBar = () => {
+export const RightSideBar = (props) => {
   return (
     <div className="flex flex-col items-end">
       <div>
         <h2 className="font-bold uppercase text-xs my-[10px]">Sort</h2>
         <ul>
-          <li>
+          <a href="#" 
+          onClick={() => props.function("descendingPrice")}
+          >
+            <h3 className="text-xs mb-[2px]">Price: High to Low</h3>
+          </a>
+          <a href="#"
+           onClick={() => props.function("ascendingPrice")}
+           >
             <h3 className="text-xs mb-[2px]">Price: Low to High</h3>
-          </li>
-          <li>
-            <h3 className="text-xs mb-[2px]">Price: Low to High</h3>
-          </li>
+          </a>
         </ul>
       </div>
       <div className="flex flex-col items-end">

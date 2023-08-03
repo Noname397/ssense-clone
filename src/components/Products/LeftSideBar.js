@@ -1,4 +1,5 @@
-export const LeftSideBar = () => {
+export const LeftSideBar = (props) => {
+  console.log(props.designers)
   return (
     <div>
       <div>
@@ -6,23 +7,49 @@ export const LeftSideBar = () => {
           All categories
         </h2>
         <ul>
-          <li>
+          <a
+            href="#"
+            onClick={() => {
+              props.function("accessories");
+            }}
+          >
             <h3 className="text-xs uppercase mb-[2px]">Accessories</h3>
-          </li>
-          <li>
+          </a>
+          <a
+            href="#"
+            onClick={() => {
+              props.function("bags");
+            }}
+          >
             <h3 className="text-xs uppercase mb-[2px]">Bags</h3>
-          </li>
-          <li>
+          </a>
+          <a
+            href="#"
+            onClick={() => {
+              props.function("clothing");
+            }}
+          >
             <h3 className="text-xs uppercase mb-[2px]">Clothing</h3>
-          </li>
-          <li>
+          </a>
+          <a
+            href="#"
+            onClick={() => {
+              props.function("shoes");
+            }}
+          >
             <h3 className="text-xs uppercase mb-[2px]">Shoes</h3>
-          </li>
+          </a>
         </ul>
       </div>
       <div>
         <h2 className="font-bold uppercase text-xs my-[10px]">All designers</h2>
-        <input type="text" className="w-[90%] border-black text-xs focus:border-black focus:ring-0"/>
+        <select name="" id="" className="text-xs">
+          {props?.designers?.map((item, index) => (
+            <option value={item} key={index}>
+              {item}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
