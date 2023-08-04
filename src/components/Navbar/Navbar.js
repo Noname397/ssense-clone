@@ -121,11 +121,14 @@ const Navbar = () => {
               </Link>
             ) : (
               <Link
-                // to="/account/account-details"
+                to="/account/account-details"
                 className="group uppercase relative"
                 
-                onClick={() => {
-                  setDropdownAccount(!dropdownAccount);
+                onMouseEnter={() => {
+                  setDropdownAccount(true);
+                }}
+                onMouseLeave={()=> {
+                  setDropdownAccount(false)
                 }}
               >
                 Account

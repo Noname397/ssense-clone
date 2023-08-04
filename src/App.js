@@ -15,6 +15,7 @@ import { Address } from "./components/Account/Address";
 import { EmailPreference } from "./components/Account/EmailPreferences";
 import { OrderHistory } from "./components/Account/OrderHistory";
 import { NewAddress } from "./components/Account/NewAddress";
+import { EditAddress } from "./components/Account/EditAddress";
 function App() {
   return (
     <Router>
@@ -30,6 +31,7 @@ function App() {
             />
             <Route path="/account/addresses" element={<Address />} />
             <Route path="/account/addresses/new" element={<NewAddress />} />
+            <Route path="/account/addresses/edit/:index" element={<EditAddress></EditAddress>}></Route>
             <Route
               path="/account/email-preference"
               element={<EmailPreference />}

@@ -1,15 +1,23 @@
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { NavigationSide } from "./NavigationSide";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Country, State, City } from "country-state-city";
-import { realtimeDatabase } from "../../configs/firebase-config";
 import { UserAuth } from "../../contexts/AuthContext";
 import { onValue, ref, update } from "firebase/database";
-import { Address } from "./Address";
-export const NewAddress = () => {
+import { realtimeDatabase } from "../../configs/firebase-config";
+export const EditAddress = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const index = location.state.index;
+  console.log(location);
+  console.log(index);
+  useEffect(() => {
+    let countriesData = Country.getAllCountries();
+    setCountries(countriesData);
+  }, []);
+
   const { user } = UserAuth();
   const [allAddresses, setAllAddresses] = useState([]);
   const [countries, setCountries] = useState([]);
@@ -25,29 +33,7 @@ export const NewAddress = () => {
   const [postalCode, setPostalCode] = useState("");
   const [phone, setPhone] = useState("");
   const [submit, setSubmit] = useState(false);
-  useEffect(() => {
-    let countriesData = Country.getAllCountries();
-    setCountries(countriesData);
-    if (user) {
-      const userDatabaseRef = ref(realtimeDatabase,`users/${user.uid}`);
-      onValue(userDatabaseRef,(snapshot) =>{
-        if (snapshot.exists()){
-          const userData = snapshot.val();
-          setAllAddresses(userData.addresses|| [])
-        }
-      })
-    } 
-    
-  }, []);
-
-  useEffect(() => {
-    console.log(country);
-    const statesData = State.getStatesOfCountry(country);
-    console.log(statesData);
-    setStates(statesData);
-  }, [country]);
-
-  const NewAddress = {
+  const Address = {
     firstName: firstName,
     lastName: lastName,
     company: company,
@@ -58,10 +44,37 @@ export const NewAddress = () => {
     postalCode: postalCode,
     phone: phone,
   };
+  useEffect(() => {
+    if (user) {
+      const userDatabaseRef = ref(realtimeDatabase, `users/${user.uid}`);
+      onValue(userDatabaseRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          //console.log(userData.addresses[index]);
+          setFirstName(userData.addresses[index].firstName);
+          setLastName(userData.addresses[index].lastName);
+          setCompany(userData.addresses[index].company);
+          setStreetAddress(userData.addresses[index].streetAddress);
+          setCountry(userData.addresses[index].country);
+          setState(userData.addresses[index].state);
+          setCity(userData.addresses[index].city);
+          setPostalCode(userData.addresses[index].postalCode);
+          setPhone(userData.addresses[index].phone);
+          //   console.log(Address);
+        }
+      });
+    }
+  }, [user]);
 
+  useEffect(() => {
+    console.log(country);
+    const statesData = State.getStatesOfCountry(country);
+    console.log(statesData);
+    setStates(statesData);
+  }, [country]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(NewAddress);
+    console.log(Address);
     setSubmit(true);
     if (
       user &&
@@ -80,12 +93,13 @@ export const NewAddress = () => {
           setAllAddresses(userData.addresses || []);
         }
       });
-      
-      const newAllAddresses = [...allAddresses, NewAddress]; // temporary
-      console.log("all addressese new");
+
+      const newAllAddresses = [...allAddresses]; // temporary
+      console.log("addresses new");
+      newAllAddresses[index] = Address;
       console.log(newAllAddresses);
       setAllAddresses(newAllAddresses);
-      update(userDatabaseRef, { addresses: [...allAddresses, NewAddress] });
+      update(userDatabaseRef, { addresses: newAllAddresses });
       alert("Update address successful");
       navigate("/account/addresses");
     }
@@ -101,7 +115,7 @@ export const NewAddress = () => {
           <div className="mt-[35px]">
             <form className="min-w-[480px]">
               <h1 className="text-base text-center mb-[25px]">
-                Add an address
+                Edit an address
               </h1>
               <div className="flex flex-col">
                 <label
@@ -113,6 +127,7 @@ export const NewAddress = () => {
                 <input
                   type="text"
                   id="new-address-first-name"
+                  value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className={`text-xs w-full ${
                     submit === true && firstName.length === 0
@@ -136,6 +151,7 @@ export const NewAddress = () => {
                 <input
                   type="text"
                   id="new-address-last-name"
+                  value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   className={`text-xs w-full ${
                     submit === true && lastName.length === 0
@@ -159,6 +175,7 @@ export const NewAddress = () => {
                 <input
                   type="text"
                   id="new-address-company"
+                  value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   className="text-xs w-full border-black border-[0.8px] focus:ring-0 focus:border-black h-[30px] outline-none px-1.5 mb-5"
                 />
@@ -173,6 +190,7 @@ export const NewAddress = () => {
                 <input
                   type="text"
                   id="new-address-street"
+                  value={streetAddress}
                   onChange={(e) => setStreetAddress(e.target.value)}
                   className={`text-xs w-full ${
                     submit === true && streetAddress.length === 0
@@ -195,14 +213,13 @@ export const NewAddress = () => {
                 </label>
                 <select
                   id="new-address-country"
+                  value={country}
                   className={`w-full border-black focus:border-black border-[0.8px] focus:ring-0 min-h-[30px] text-xs mb-5`}
                   onChange={(e) => {
                     setCountry(e.target.value);
                   }}
                 >
-                  <option disabled selected>
-                    Select
-                  </option>
+                  <option disabled>Select</option>
                   {countries.map((item, index) => {
                     return (
                       <option value={item.isoCode} key={index}>
@@ -225,15 +242,14 @@ export const NewAddress = () => {
                   State/Province
                 </label>
                 <select
-                  className="w-full border-[0.8px] border-black min-h-[30px] text-xs mb-5"
+                  className="w-full border-[0.8px] focus:border-black focus:ring-0 border-black min-h-[30px] text-xs mb-5"
                   id="addresses-form-province-input"
+                  value={state}
                   onChange={(e) => {
                     setState(e.target.value);
                   }}
                 >
-                  <option disabled selected>
-                    Select
-                  </option>
+                  <option disabled>Select</option>
                   {states.map((item, index) => {
                     return (
                       <option value={item.isoCode} key={index}>
@@ -255,6 +271,7 @@ export const NewAddress = () => {
                 <input
                   type="text"
                   id="new-address-city"
+                  value={city}
                   onChange={(e) => setCity(e.target.value)}
                   className={`text-xs w-full ${
                     submit === true && city.length === 0
@@ -279,6 +296,7 @@ export const NewAddress = () => {
                   <input
                     type="text"
                     id="new-address-postal"
+                    value={postalCode}
                     onChange={(e) => setPostalCode(e.target.value)}
                     className={`text-xs w-full ${
                       submit === true && postalCode.length === 0
@@ -302,6 +320,7 @@ export const NewAddress = () => {
                   <input
                     type="tel"
                     id="new-address-phone"
+                    value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className={`text-xs w-full ${
                       submit === true && phone.length < 7
@@ -345,5 +364,8 @@ export const NewAddress = () => {
       </div>
       <Footer></Footer>
     </div>
+    // <div>
+    //     A du
+    // </div>
   );
 };

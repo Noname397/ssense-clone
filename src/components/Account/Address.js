@@ -37,13 +37,11 @@ export const Address = () => {
         .catch((error) => {
           alert("Error updating:", error);
         });
-
-    
     }
   };
   const handleRemoveAddress = (index) => {
-    setAllAddresses(allAddresses.splice(index,1));
-    updateAddresses(allAddresses.splice(index,1));
+    setAllAddresses(allAddresses.splice(index, 1));
+    updateAddresses(allAddresses.splice(index, 1));
   };
   return (
     <div className="pt-[55px]">
@@ -63,7 +61,9 @@ export const Address = () => {
                   return (
                     <li
                       key={index}
-                      className={`text-xs ${index > 0 ? "mt-10" : ""} grid place-items-center`}
+                      className={`text-xs ${
+                        index > 0 ? "mt-10" : ""
+                      } grid place-items-center`}
                     >
                       <p className="font-bold">
                         {item.firstName + " " + item.lastName}
@@ -79,8 +79,14 @@ export const Address = () => {
                         {item.defaultShippingAddress &&
                           "Default Shipping Address"}
                       </p>
-                      <div className="w-full flex justify-around">
-                        <Link className="uppercase">Edit</Link>
+                      <div className="w-full flex justify-around mt-2.5">
+                        <Link
+                          to={`/account/addresses/edit/${index}`}
+                          state={{ index }}
+                          className="uppercase"
+                        >
+                          Edit
+                        </Link>
                         <button
                           onClick={() => {
                             handleRemoveAddress(index);
