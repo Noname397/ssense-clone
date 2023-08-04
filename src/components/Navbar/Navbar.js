@@ -6,7 +6,6 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import SearchBar from "./SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../../contexts/AuthContext";
 import { UserCart } from "../../contexts/CartContext";
@@ -29,10 +28,7 @@ const Navbar = () => {
   function menuHandlder() {
     setMobileMenu(!mobileMenu);
   }
-  const [searchMenu, setSearchMenu] = useState(false);
-  function searchHandler() {
-    setSearchMenu(!searchMenu);
-  }
+
   return (
     <div className="w-full fixed top-0 left-0">
       <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
@@ -41,25 +37,11 @@ const Navbar = () => {
             <AiOutlineMenu
               size={30}
               onClick={() => {
-                setSearchMenu(false);
                 menuHandlder();
               }}
             ></AiOutlineMenu>
           </Link>
-          <Link>
-            <AiOutlineSearch
-              size={30}
-              onClick={() => {
-                setMobileMenu(false);
-                searchHandler();
-              }}
-            ></AiOutlineSearch>
-            {searchMenu && (
-              <div className="absolute top-[55px] left-0 w-full">
-                <SearchBar state={searchMenu} handler={searchHandler} />
-              </div>
-            )}
-          </Link>
+          
         </div>
 
         <ul className="hidden lg:flex w-[40%] justify-between relative">
@@ -70,26 +52,7 @@ const Navbar = () => {
             </Link>
           </li>
 
-          <li className="px-2 text-[11px]">
-            <Link onClick={searchHandler} className="group">
-              SEARCH
-              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-            </Link>
-            {searchMenu && (
-              <div
-                className={`absolute top-[30px] left-0 ${
-                  searchMenu ? "border border-black" : ""
-                } w-[450px]`}
-              >
-                {searchMenu && (
-                  <SearchBar
-                    state={searchMenu}
-                    handler={searchHandler}
-                  ></SearchBar>
-                )}
-              </div>
-            )}
-          </li>
+
           <li className="px-2 text-[11px] relative">
             <a href="#" className="group">
               ENGLISH
@@ -123,17 +86,16 @@ const Navbar = () => {
               <Link
                 to="/account/account-details"
                 className="group uppercase relative"
-                
                 onMouseEnter={() => {
                   setDropdownAccount(true);
                 }}
-                onMouseLeave={()=> {
-                  setDropdownAccount(false)
+                onMouseLeave={() => {
+                  setDropdownAccount(false);
                 }}
               >
                 Account
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
-                <div className={`${dropdownAccount ? 'block' : 'hidden'}`}>
+                <div className={`${dropdownAccount ? "block" : "hidden"}`}>
                   <DropdownAccount></DropdownAccount>
                 </div>
               </Link>

@@ -1,16 +1,17 @@
 export const LeftSideBar = (props) => {
-  console.log(props.designers)
   return (
     <div>
       <div>
-        <h2 className="font-bold uppercase text-xs my-[10px]">
+        <h2 className="font-bold uppercase text-xs my-[10px] cursor-pointer" onClick={() => {
+          props.returnAllProducts()
+        }}>
           All categories
         </h2>
         <ul>
           <a
             href="#"
             onClick={() => {
-              props.function("accessories");
+              props.updateType("accessories");
             }}
           >
             <h3 className="text-xs uppercase mb-[2px]">Accessories</h3>
@@ -18,7 +19,7 @@ export const LeftSideBar = (props) => {
           <a
             href="#"
             onClick={() => {
-              props.function("bags");
+              props.updateType("bags");
             }}
           >
             <h3 className="text-xs uppercase mb-[2px]">Bags</h3>
@@ -26,7 +27,7 @@ export const LeftSideBar = (props) => {
           <a
             href="#"
             onClick={() => {
-              props.function("clothing");
+              props.updateType("clothing");
             }}
           >
             <h3 className="text-xs uppercase mb-[2px]">Clothing</h3>
@@ -34,7 +35,7 @@ export const LeftSideBar = (props) => {
           <a
             href="#"
             onClick={() => {
-              props.function("shoes");
+              props.updateType("shoes");
             }}
           >
             <h3 className="text-xs uppercase mb-[2px]">Shoes</h3>
@@ -43,8 +44,19 @@ export const LeftSideBar = (props) => {
       </div>
       <div>
         <h2 className="font-bold uppercase text-xs my-[10px]">All designers</h2>
-        <select name="" id="" className="text-xs">
-          {props?.designers?.map((item, index) => (
+        <select
+          name=""
+          id=""
+          className="text-xs"
+          onChange={(e) => {
+            props.updateDesigner(e.target.value)
+          }}
+          
+        >
+          <option value="" disabled selected>
+            Select
+          </option>
+          {props.allDesigners.map((item, index) => (
             <option value={item} key={index}>
               {item}
             </option>
