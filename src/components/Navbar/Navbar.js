@@ -14,32 +14,21 @@ const Navbar = () => {
   const { user, setUser, login, logout } = UserAuth();
   const { totalItems } = UserCart();
   const [dropdownAccount, setDropdownAccount] = useState(false);
-  // const [totalItems, setTotalItems] = useState(0);
-  // useEffect(() => {
-  //   setTotalItems(
-  //     cart
-  //       .map((item) => item.quantity)
-  //       .reduce((accumulator, currentValue) => {
-  //         return accumulator + currentValue;
-  //       }, 0)
-  //   );
-  // }, [cart]);
+
   const [mobileMenu, setMobileMenu] = useState(false);
   function menuHandlder() {
     setMobileMenu(!mobileMenu);
   }
-  const [mobileAccount, setMobileAccount] = useState(false);
 
   return (
-    <div className="w-full h-full fixed top-0 left-0">
+    <div className="w-full fixed top-0 left-0">
       <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
         <div className="grid grid-cols-2 gap-x-1 lg:hidden">
           <Link>
             <AiOutlineMenu
               size={30}
               onClick={() => {
-                setMobileMenu(!mobileMenu);
-                setMobileAccount(false)
+                menuHandlder();
               }}
             ></AiOutlineMenu>
           </Link>
@@ -113,24 +102,9 @@ const Navbar = () => {
         </ul>
 
         <div className="min-w-[60px] flex justify-between lg:hidden">
-        <div>
-            {!user && (
-              <Link to="/login">
-                <AiOutlineUser size={30}></AiOutlineUser>
-              </Link>
-            )}
-            {user && (
-              <Link
-                onClick={() => {
-                  setMobileAccount(!mobileAccount);
-                  setMobileMenu(false);
-                }}
-              >
-                <AiOutlineUser size={30}></AiOutlineUser>
-              </Link>
-            )}
-          </div>
-
+          <Link to="/account">
+            <AiOutlineUser size={30}></AiOutlineUser>
+          </Link>
           <Link to="/shopping-cart" className="flex relative">
             <HiOutlineShoppingBag size={30}></HiOutlineShoppingBag>
             <div className="absolute top-[12px] left-[9px] flex items-start justify-center w-3 ">
@@ -140,44 +114,18 @@ const Navbar = () => {
         </div>
       </header>
       {mobileMenu && (
-        <ul className="lg:hidden absolute bg-white w-full h-full p-0">
+        <ul className="lg:hidden absolute bg-white w-full p-0">
           <li className="pb-[25px] pl-9">
             <Link to="/products">ALL PRODUCTS</Link>
           </li>
           <li className="pb-[25px] pl-9">
-            <Link to="/shopping-cart">SHOPPING CART</Link>
+            <a href="">SHOPPING BAG</a>
           </li>
           <li className="pb-[25px] pl-9">
-            {!user && <Link to="/login">LOGIN</Link>}
-            {user && <Link onClick={() => {
-              setMobileMenu(false);
-              setMobileAccount(true)
-            }}> Welcome </Link>}
+            <a href="">LOGIN</a>
           </li>
         </ul>
       )}
-          {mobileAccount && (
-        <ul className="lg:hidden absolute bg-white w-full h-full p-0">
-          <li className="pb-[25px] pl-9">
-            <Link to="/account/order-history">ORDER HISTORY</Link>
-          </li>
-          <li className="pb-[25px] pl-9">
-            <Link to="/account/account-details">ACCOUNT DETAILS</Link>
-          </li>
-          <li className="pb-[25px] pl-9">
-            <Link to="/account/email-preference">EMAIL PREFERENCE</Link>
-          </li>
-          <li className="pb-[25px] pl-9">
-            <Link to="/account/addresses">ADDRESS</Link>
-          </li>
-          <li className="pb-[25px] pl-9">
-            <Link onClick={() => {
-              
-            }}>LOG OUT</Link>
-          </li>
-        </ul>
-      )}
-
     </div>
   );
 };

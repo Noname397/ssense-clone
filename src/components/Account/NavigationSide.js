@@ -3,7 +3,6 @@ import { UserAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 export const NavigationSide = () => {
     const {user,logout} = UserAuth();
-    const navigate = useNavigate();
     return (
         <ul>
           <li className="text-[13px] font-bold mb-[15px]">Account</li>
@@ -40,8 +39,7 @@ export const NavigationSide = () => {
             <a
               href="#"
               onClick={() => {
-                logout();
-                navigate("/");
+               
               }}
             >
               Logout
