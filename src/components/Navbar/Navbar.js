@@ -1,15 +1,14 @@
-import { useState} from "react";
-import {
-  AiOutlineMenu,
-  AiOutlineUser,
-} from "react-icons/ai";
+import { useState } from "react";
+import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../../contexts/AuthContext";
 import { UserCart } from "../../contexts/CartContext";
 import { DropdownAccount } from "./DropdownAccount";
+
 const Navbar = () => {
-  const { user} = UserAuth();
+  const navigate = useNavigate()
+  const { user,logout } = UserAuth();
   const { totalItems } = UserCart();
   const [dropdownAccount, setDropdownAccount] = useState(false);
 
@@ -53,10 +52,14 @@ const Navbar = () => {
           </li>
         </ul>
 
-        <Link to="/" onClick={() => {
-          setMobileAccount(false)
-          setMobileMenu(false)
-        }} className="block">
+        <Link
+          to="/"
+          onClick={() => {
+            setMobileAccount(false);
+            setMobileMenu(false);
+          }}
+          className="block"
+        >
           <img
             className="h-[21px]"
             src="//res.cloudinary.com/ssenseweb/image/upload/v1471963917/web/ssense_logo_v2.svg"
@@ -64,7 +67,7 @@ const Navbar = () => {
           />
         </Link>
 
-        <ul className="hidden lg:flex w-[40%] justify-between">
+        <ul className="hidden lg:flex w-[40%] justify-between relative">
           <li className="px-2 text-[11px]">
             {!user ? (
               <Link to="/login" className="group">
@@ -74,7 +77,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/account/account-details"
-                className="group uppercase relative"
+                className="group uppercase"
                 onMouseEnter={() => {
                   setDropdownAccount(true);
                 }}
@@ -136,10 +139,17 @@ const Navbar = () => {
           </li>
           <li className="pb-[25px] pl-9">
             {!user && <Link to="/login">LOGIN</Link>}
-            {user && <Link onClick={() => {
-              setMobileMenu(false);
-              setMobileAccount(true)
-            }}> Welcome - {user.email} </Link>}
+            {user && (
+              <Link
+                onClick={() => {
+                  setMobileMenu(false);
+                  setMobileAccount(true);
+                }}
+              >
+                {" "}
+                Welcome - {user.email}{" "}
+              </Link>
+            )}
           </li>
         </ul>
       )}
@@ -156,10 +166,19 @@ const Navbar = () => {
             <Link to="/account/email-preference">EMAIL PREFERENCE</Link>
           </li>
           <li className="pb-[25px] pl-9">
-            <Link to="/account/addresses">ADDRESS</Link>
+            <Link to="/account/addresses">ADDRESSES</Link>
           </li>
           <li className="pb-[25px] pl-9">
-            <Link onClick={() => {}}>LOG OUT</Link>
+            <a
+              href="/"
+              onClick={() => {
+                logout();
+                setMobileAccount(false);
+                setMobileMenu(false)
+              }}
+            >
+              LOG OUT
+            </a>
           </li>
         </ul>
       )}

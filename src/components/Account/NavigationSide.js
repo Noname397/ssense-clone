@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { UserAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 export const NavigationSide = () => {
+    const navigate = useNavigate()
     const {user,logout} = UserAuth();
     return (
         <ul>
@@ -37,9 +38,9 @@ export const NavigationSide = () => {
 
           <li className="text-xs mb-0.5">
             <a
-              href="#"
+              href="/"
               onClick={() => {
-               
+               logout();
               }}
             >
               Logout

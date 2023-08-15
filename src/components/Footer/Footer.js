@@ -10,8 +10,8 @@ const Footer = () => {
   const [focusedInput, setFocusedInput] = useState(false);
 
   return (
-    <div className="px-[42px]">
-      <nav>
+    <div className="px-[42px] border-t-[0.8px] border-[#ccc] lg:border-none bt-">
+      <nav className="mt-2.5 lg:mt-0">
         <ul className="hidden lg:flex lg:justify-between">
           <li className="text-xs group transition duration-300">
             <a href="">COUNTRY/REGION: VIETNAM</a>

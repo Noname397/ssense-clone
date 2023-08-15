@@ -54,10 +54,10 @@ export const AccountDetails = () => {
     <div className="mt-[55px]">
       <Navbar></Navbar>
       <div className="grid grid-cols-6 px-4 sm:px-9 mb-[100px]">
-        <div className="col-span-1 flex mt-[45px] ml-3">
+        <div className="hidden lg:col-span-1 lg:flex mt-[45px] ml-3">
           <NavigationSide></NavigationSide>
         </div>
-        <div className="col-span-4 pl-3 flex justify-center min-h-[75vh]">
+        <div className="col-span-6 lg:col-span-4 pl-3 flex justify-center min-h-[75vh]">
           {active === 1 && (
             <div className="mt-[35px]">
               {orderHistory.length > 0 && <div>Has Order</div>}
