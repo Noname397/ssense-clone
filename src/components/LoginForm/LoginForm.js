@@ -123,11 +123,10 @@ export const LoginForm = () => {
             </h2>
             <div className="mb-[25px]">
               <input
-                className="w-full border border-black h-[30px] px-[6px] focus:outline-none text-[11px]"
+                className="w-full border-black h-[30px] px-[6px] outline-none focus:border-black focus:ring-0 text-[11px]"
                 type="email"
                 placeholder={email}
                 onChange={(event) => {
-                  setErrorMessage("");
                   setEmail(event.target.value);
                 }}
               />
@@ -171,7 +170,7 @@ export const LoginForm = () => {
                 Password
               </h2>
               <input
-                className="w-full border border-black h-[30px] px-[6px] focus:outline-none text-[11px]"
+                className="w-full border-black h-[30px] px-[6px] outline-none focus:border-black focus:ring-0 text-[11px]"
                 type="password"
                 onChange={(event) => setPassword(event.target.value)}
               />
@@ -209,7 +208,6 @@ export const LoginForm = () => {
           </>
         )}
         {page == 2 && (
-          <>
             <div
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -235,15 +233,10 @@ export const LoginForm = () => {
                 Password
               </h2>
               <input
-                className="w-full border border-black h-[30px] px-[6px] focus:outline-none text-[11px]"
+                className="w-full border-black h-[30px] px-[6px] outline-none focus:border-black focus:ring-0 text-[11px]"
                 type="password"
                 placeholder={password}
                 onChange={(event) => setPassword(event.target.value)}
-                // onKeyDown={(e) => {
-                //   if (e.key === "Enter") {
-                //     register();
-                //   }
-                // }}
               />
               {errorMessage && (
                 <p className="text-[11px] text-red-600">{errorMessage}</p>
@@ -265,7 +258,6 @@ export const LoginForm = () => {
                 Back
               </button>
             </div>
-          </>
         )}
 
         {page == 3 && (
