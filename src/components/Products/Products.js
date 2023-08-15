@@ -143,7 +143,7 @@ export const Products = () => {
         <a
           onClick={() => {
             setMobileRefine(!mobileRefine);
-            setMobileSort(false)
+            setMobileSort(false);
           }}
           className="h-10 col-span-1 border-r border-b grid place-items-center font-bold"
         >
@@ -152,7 +152,7 @@ export const Products = () => {
         <a
           onClick={() => {
             setMobileSort(!mobileSort);
-            setMobileRefine(false)
+            setMobileRefine(false);
           }}
           className="h-10 col-span-1 border-b grid place-items-center font-bold"
         >
@@ -161,26 +161,45 @@ export const Products = () => {
         {mobileRefine && (
           <div className="col-span-2 border-b">
             <div className="px-4 sm:px-9">
-              <p className="cursor-pointer" onClick={() =>{
-                updateType("")
-              }}>ALL CATEGORIES</p>
+              <p
+                className="cursor-pointer"
+                onClick={() => {
+                  updateType("");
+                }}
+              >
+                ALL CATEGORIES
+              </p>
               <ul className="h-[80px] md:h-10 grid grid-cols-2 md:grid-cols-4 w-full">
-                <li className="grid place-items-center cursor-pointer h-full" onClick={() => {
-                  updateType("accessories")
-                }}>
+                <li
+                  className="grid place-items-center cursor-pointer h-full"
+                  onClick={() => {
+                    updateType("accessories");
+                  }}
+                >
                   ACCESSORIES
                 </li>
-                <li className="grid place-items-center cursor-pointer h-full" onClick={() => {
-                  updateType("bags")
-                }}>BAGS</li>
-                <li className="grid place-items-center cursor-pointer h-full" onClick={() => {
-                  updateType("clothing")
-                }}>
+                <li
+                  className="grid place-items-center cursor-pointer h-full"
+                  onClick={() => {
+                    updateType("bags");
+                  }}
+                >
+                  BAGS
+                </li>
+                <li
+                  className="grid place-items-center cursor-pointer h-full"
+                  onClick={() => {
+                    updateType("clothing");
+                  }}
+                >
                   CLOTHING
                 </li>
-                <li className="grid place-items-center cursor-pointer h-full" onClick={() => {
-                  updateType("shoes")
-                }}>
+                <li
+                  className="grid place-items-center cursor-pointer h-full"
+                  onClick={() => {
+                    updateType("shoes");
+                  }}
+                >
                   SHOES
                 </li>
               </ul>

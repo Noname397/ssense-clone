@@ -1,8 +1,6 @@
-import { useState, useContext, useEffect, useMemo } from "react";
+import { useState} from "react";
 import {
   AiOutlineMenu,
-  AiOutlineSearch,
-  AiOutlineShopping,
   AiOutlineUser,
 } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -11,7 +9,7 @@ import { UserAuth } from "../../contexts/AuthContext";
 import { UserCart } from "../../contexts/CartContext";
 import { DropdownAccount } from "./DropdownAccount";
 const Navbar = () => {
-  const { user, setUser, login, logout } = UserAuth();
+  const { user} = UserAuth();
   const { totalItems } = UserCart();
   const [dropdownAccount, setDropdownAccount] = useState(false);
 
@@ -19,7 +17,7 @@ const Navbar = () => {
   const [mobileAccount, setMobileAccount] = useState(false);
 
   return (
-    <div className="w-full h-full fixed top-0 left-0">
+    <div className="w-full fixed top-0 left-0">
       <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
         <div className="grid grid-cols-2 gap-x-1 lg:hidden">
           <Link>
@@ -129,7 +127,7 @@ const Navbar = () => {
         </div>
       </header>
       {mobileMenu && (
-        <ul className="lg:hidden absolute bg-white w-full h-full p-0">
+        <ul className="lg:hidden absolute bg-white w-full min-h-[150px] p-0">
           <li className="pb-[25px] pl-9">
             <Link to="/products">ALL PRODUCTS</Link>
           </li>
@@ -147,7 +145,7 @@ const Navbar = () => {
       )}
 
       {mobileAccount && (
-        <ul className="lg:hidden absolute bg-white w-full h-full p-0">
+        <ul className="lg:hidden absolute bg-white w-full min-h-[250px] p-0">
           <li className="pb-[25px] pl-9">
             <Link to="/account/order-history">ORDER HISTORY</Link>
           </li>
