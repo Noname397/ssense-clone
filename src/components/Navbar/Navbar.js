@@ -16,23 +16,21 @@ const Navbar = () => {
   const [dropdownAccount, setDropdownAccount] = useState(false);
 
   const [mobileMenu, setMobileMenu] = useState(false);
-  function menuHandlder() {
-    setMobileMenu(!mobileMenu);
-  }
+  const [mobileAccount, setMobileAccount] = useState(false);
 
   return (
-    <div className="w-full fixed top-0 left-0">
+    <div className="w-full h-full fixed top-0 left-0">
       <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
         <div className="grid grid-cols-2 gap-x-1 lg:hidden">
           <Link>
             <AiOutlineMenu
               size={30}
               onClick={() => {
-                menuHandlder();
+                setMobileMenu(!mobileMenu);
+                setMobileAccount(false);
               }}
             ></AiOutlineMenu>
           </Link>
-          
         </div>
 
         <ul className="hidden lg:flex w-[40%] justify-between relative">
@@ -42,7 +40,6 @@ const Navbar = () => {
               <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
             </Link>
           </li>
-
 
           <li className="px-2 text-[11px] relative">
             <a href="#" className="group">
@@ -58,7 +55,10 @@ const Navbar = () => {
           </li>
         </ul>
 
-        <Link to="/" className="block">
+        <Link to="/" onClick={() => {
+          setMobileAccount(false)
+          setMobileMenu(false)
+        }} className="block">
           <img
             className="h-[21px]"
             src="//res.cloudinary.com/ssenseweb/image/upload/v1471963917/web/ssense_logo_v2.svg"
@@ -102,9 +102,24 @@ const Navbar = () => {
         </ul>
 
         <div className="min-w-[60px] flex justify-between lg:hidden">
-          <Link to="/account">
-            <AiOutlineUser size={30}></AiOutlineUser>
-          </Link>
+          <div>
+            {!user && (
+              <Link to="/login">
+                <AiOutlineUser size={30}></AiOutlineUser>
+              </Link>
+            )}
+            {user && (
+              <Link
+                onClick={() => {
+                  setMobileAccount(!mobileAccount);
+                  setMobileMenu(false);
+                }}
+              >
+                <AiOutlineUser size={30}></AiOutlineUser>
+              </Link>
+            )}
+          </div>
+
           <Link to="/shopping-cart" className="flex relative">
             <HiOutlineShoppingBag size={30}></HiOutlineShoppingBag>
             <div className="absolute top-[12px] left-[9px] flex items-start justify-center w-3 ">
@@ -114,15 +129,39 @@ const Navbar = () => {
         </div>
       </header>
       {mobileMenu && (
-        <ul className="lg:hidden absolute bg-white w-full p-0">
+        <ul className="lg:hidden absolute bg-white w-full h-full p-0">
           <li className="pb-[25px] pl-9">
             <Link to="/products">ALL PRODUCTS</Link>
           </li>
           <li className="pb-[25px] pl-9">
-            <a href="">SHOPPING BAG</a>
+            <Link to="/shopping-cart">SHOPPING CART</Link>
           </li>
           <li className="pb-[25px] pl-9">
-            <a href="">LOGIN</a>
+            {!user && <Link to="/login">LOGIN</Link>}
+            {user && <Link onClick={() => {
+              setMobileMenu(false);
+              setMobileAccount(true)
+            }}> Welcome - {user.email} </Link>}
+          </li>
+        </ul>
+      )}
+
+      {mobileAccount && (
+        <ul className="lg:hidden absolute bg-white w-full h-full p-0">
+          <li className="pb-[25px] pl-9">
+            <Link to="/account/order-history">ORDER HISTORY</Link>
+          </li>
+          <li className="pb-[25px] pl-9">
+            <Link to="/account/account-details">ACCOUNT DETAILS</Link>
+          </li>
+          <li className="pb-[25px] pl-9">
+            <Link to="/account/email-preference">EMAIL PREFERENCE</Link>
+          </li>
+          <li className="pb-[25px] pl-9">
+            <Link to="/account/addresses">ADDRESS</Link>
+          </li>
+          <li className="pb-[25px] pl-9">
+            <Link onClick={() => {}}>LOG OUT</Link>
           </li>
         </ul>
       )}
