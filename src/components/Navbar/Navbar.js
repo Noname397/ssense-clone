@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../../contexts/AuthContext";
 import { UserCart } from "../../contexts/CartContext";
 import { DropdownAccount } from "./DropdownAccount";
-
+import { MdOutlineArrowForwardIos } from "react-icons/md";
 const Navbar = () => {
   const navigate = useNavigate()
   const { user,logout } = UserAuth();
@@ -14,9 +14,10 @@ const Navbar = () => {
 
   const [mobileMenu, setMobileMenu] = useState(false);
   const [mobileAccount, setMobileAccount] = useState(false);
+  const [languageMobileMenu,setLanguageMobileMenu] = useState(false);
 
   return (
-    <div className="w-full fixed top-0 left-0">
+    <div className="w-full fixed z-50 top-0 left-0">
       <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
         <div className="grid grid-cols-2 gap-x-1 lg:hidden">
           <Link>
@@ -68,6 +69,13 @@ const Navbar = () => {
         </Link>
 
         <ul className="hidden lg:flex w-[40%] justify-between relative">
+        <li className="px-2 text-[11px] invisible">
+            <Link className="group">
+              EVERYTHING ELSE
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black"></span>
+            </Link>
+          </li>
+
           <li className="px-2 text-[11px]">
             {!user ? (
               <Link to="/login" className="group">
@@ -100,6 +108,7 @@ const Navbar = () => {
               <span>({totalItems})</span>
             </Link>
           </li>
+
         </ul>
 
         <div className="min-w-[60px] flex justify-between lg:hidden">
@@ -130,14 +139,19 @@ const Navbar = () => {
         </div>
       </header>
       {mobileMenu && (
-        <ul className="lg:hidden absolute bg-white w-full min-h-[150px] p-0">
-          <li className="pb-[25px] pl-9">
+        <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-51 overflow-hidden transition-transform ease-in-out duration-500 transform translate-x-4">
+          <li className="pt-3 pb-10 px-9 flex justify-end uppercase">
+            <Link onClick={() => {
+              setMobileMenu(false);
+            }}>close</Link>
+          </li>
+          <li className="py-3 px-9">
             <Link to="/products">ALL PRODUCTS</Link>
           </li>
-          <li className="pb-[25px] pl-9">
+          <li className="py-3 px-9">
             <Link to="/shopping-cart">SHOPPING CART</Link>
           </li>
-          <li className="pb-[25px] pl-9">
+          <li className="py-3 px-9">
             {!user && <Link to="/login">LOGIN</Link>}
             {user && (
               <Link
@@ -146,29 +160,59 @@ const Navbar = () => {
                   setMobileAccount(true);
                 }}
               >
+                <p className="flex justify-between">
                 {" "}
                 Welcome - {user.email}{" "}
+                <MdOutlineArrowForwardIos />
+                </p>
               </Link>
             )}
+          </li>
+          <li className="py-3 px-9 uppercase">
+            <Link className="flex justify-between" onClick={() => {
+              setLanguageMobileMenu(true);
+            }}> <p>Language - English</p>  <MdOutlineArrowForwardIos /></Link>
+          </li>
+          <li className="py-3 px-9 uppercase">
+            Customer Care
           </li>
         </ul>
       )}
 
       {mobileAccount && (
-        <ul className="lg:hidden absolute bg-white w-full min-h-[250px] p-0">
-          <li className="pb-[25px] pl-9">
+        <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-51 overflow-hidden">
+          <li className="pt-3 pb-10 px-9 flex justify-end uppercase">
+            <ul className="flex w-full justify-between">
+              <li onClick={() => {
+                setMobileAccount(false);
+                setMobileMenu(true);
+              }}>
+                <Link>
+                Back
+                </Link>
+                </li>
+              <li className="text-[#888888]">Account</li>
+              <li onClick={() => {
+                setMobileAccount(false);
+                setMobileMenu(false);
+              }}>
+                <Link>Close</Link>
+                </li>
+            </ul>
+          </li>
+          <li className="py-3 px-9">
             <Link to="/account/order-history">ORDER HISTORY</Link>
           </li>
-          <li className="pb-[25px] pl-9">
-            <Link to="/account/account-details">ACCOUNT DETAILS</Link>
+          <li className="py-3 px-9">
+            <Link to="/account/account-details" className="capitalize">ACCOUNT DETAILS</Link>
           </li>
-          <li className="pb-[25px] pl-9">
-            <Link to="/account/email-preference">EMAIL PREFERENCE</Link>
+          <li className="py-3 px-9">
+            <Link to="/account/email-preference" className="capitalize">EMAIL PREFERENCE</Link>
           </li>
-          <li className="pb-[25px] pl-9">
-            <Link to="/account/addresses">ADDRESSES</Link>
+          <li className="py-3 px-9">
+            <Link to="/account/addresses" className="capitalize">ADDRESSES</Link>
           </li>
-          <li className="pb-[25px] pl-9">
+          <li className="py-3 px-9">
             <a
               href="/"
               onClick={() => {
@@ -176,6 +220,7 @@ const Navbar = () => {
                 setMobileAccount(false);
                 setMobileMenu(false)
               }}
+              className="capitalize"
             >
               LOG OUT
             </a>

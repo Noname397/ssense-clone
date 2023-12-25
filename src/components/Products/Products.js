@@ -159,7 +159,7 @@ export const Products = () => {
           <span>SORT</span>
         </a>
         {mobileRefine && (
-          <div className="col-span-2 border-b">
+          <div className="col-span-2 border-b w-full h-full z-51">
             <div className="px-4 sm:px-9">
               <p
                 className="cursor-pointer"
@@ -293,6 +293,7 @@ export const Products = () => {
               updatePrice={updatePrice}
               colors={allColors}
               updateColor={updateColor}
+              returnAllProducts={returnAllProducts}
             ></RightSideBar>
           </div>
         </div>

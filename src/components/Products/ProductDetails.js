@@ -1,16 +1,35 @@
 import { useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserCart } from "../../contexts/CartContext";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../configs/firebase-config";
+import { Carousel } from "./Carousel";
 export const ProductDetails = () => {
   const location = useLocation();
-  const product = location.state;
+  const [product,setProduct] = useState(location.state);
+  useEffect(() => {
+    const getProducts = async () => {
+      const productsCollectionRef = collection(db, "products");
+      const data = await getDocs(productsCollectionRef);
+      const processedData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      console.log(processedData);
+      //setProducts(processedData);
+      //setFilteredProducts(processedData);
+    };
+
+    getProducts();
+  }, []);
+  console.log(product)
   const { cart, addToCart,findIndexItem } = UserCart();
-  const buttonValues = product?.imgLinks?.map((item, index) => {
-    return index;
-  });
-  const [activeSlideButton, setActiveSlideButton] = useState(0);
+  // const buttonValues = product?.imgLinks?.map((item, index) => {
+  //   return index;
+  // });
+  // const [activeSlideButton, setActiveSlideButton] = useState(0);
   console.log(product);
   console.log(cart);
   const item = {
@@ -56,16 +75,16 @@ export const ProductDetails = () => {
           </div>
         </div>
         <div className="col-span-1">
-          <div className="sticky top-[50%] mr-[50px]">
+          <div className="sticky top-[50%] xl:mr-[50px]">
             <div className="text-xs">{"$" + product?.price}</div>
-            <div className="flex">
+            <div className="flex w-full">
             <button
-                className="text-xs uppercase min-w-[140px] min-h-[35px] bg-black text-white"
+                className="text-xs uppercase min-w-[50%] min-h-[35px] bg-black text-white"
                 onClick={handleAddCart}
               >
                 Add to bag
               </button>
-              <button className="text-xs  uppercase min-w-[140px] min-h-[35px] bg-white text-black">
+              <button className="text-xs  uppercase min-w-[50%] min-h-[35px] bg-white text-black">
                 Add to wishlist
               </button>
             </div>
@@ -74,14 +93,25 @@ export const ProductDetails = () => {
       </div>
       <div className="lg:hidden grid w-full min-[576px]:grid-cols-4 md:grid-cols-5 m gap-x-3 text-xs ">
         <div className="md:col-span-3 col-span-2 ">
-          <div className=" grid place-items-center overflow-hidden h-[400px] md:h-[600px]">
+          <div className="h-[400px] md:h-[600px] flex">
+            <Carousel slides={product.imgLinks} className="h-full">
+              {/* {product?.imgLinks?.map((link) => {
+                return (
+                  <div className="grid place-items-center">
+                    <img src={link} className="max-h-full object-fill" alt="" />
+                  </div>
+                );
+              })} */}
+            </Carousel>
+          </div>
+          {/* <div className="grid place-items-center overflow-hidden h-[400px] md:h-[600px]">
             <img
               src={product?.imgLinks[activeSlideButton]}
               className="max-h-full object-fill"
               alt=""
             />
-          </div>
-          <div className="flex justify-center">
+          </div> */}
+          {/* <div className="flex justify-center">
             {buttonValues?.map((index) => {
               return (
                 <button
@@ -96,9 +126,9 @@ export const ProductDetails = () => {
                 ></button>
               );
             })}
-          </div>
+          </div> */}
         </div>
-        <div className="col-span-2 h-full">
+        <div className="col-span-2 h-full mt-[15px]">
           <div className="flex justify-between mb-[15px]">
             <div>
               <p className="uppercase">{product?.brand}</p>
@@ -131,9 +161,10 @@ export const ProductDetails = () => {
           </div>
         </div>
       </div>
+      <div className="mt-7">
       <div className="uppercase text-xs">You may also like</div>
-
       <div className="uppercase text-xs">{product?.brand}</div>
+      </div>
       <Footer></Footer>
     </div>
   );

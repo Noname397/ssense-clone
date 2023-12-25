@@ -16,6 +16,7 @@ import { EmailPreference } from "./components/Account/EmailPreferences";
 import { OrderHistory } from "./components/Account/OrderHistory";
 import { NewAddress } from "./components/Account/NewAddress";
 import { EditAddress } from "./components/Account/EditAddress";
+import { Checkout } from "./pages/Checkout";
 function App() {
   return (
     <Router>
@@ -47,6 +48,7 @@ function App() {
               element={<ProductDetails />}
             ></Route>
             <Route path="/new-product" element={<NewProduct />} />
+            <Route path="/checkout" element={<Checkout />}></Route>
           </Routes>
         </CartContextProvider>
       </AuthContextProvider>

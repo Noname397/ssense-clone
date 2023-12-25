@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 export const RightSideBar = (props) => {
   return (
     <div className="flex flex-col items-end">
@@ -19,7 +20,13 @@ export const RightSideBar = (props) => {
         </ul>
       </div>
       <div className="flex flex-col items-end">
-        <h2 className="font-bold uppercase text-xs my-[10px]">Colors</h2>
+        <h2 className="font-bold uppercase text-xs my-[10px]">
+          <Link onClick={() => {
+            props.returnAllProducts();
+          }}>
+          All Colors
+          </Link>
+        </h2>
         <select
           name=""
           id=""

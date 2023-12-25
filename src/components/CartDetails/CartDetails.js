@@ -1,6 +1,7 @@
 import { CiCircleRemove } from "react-icons/ci";
 import { UserCart } from "../../contexts/CartContext";
 import { UserAuth } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
 export const CartDetails = () => {
   const { user } = UserAuth();
   const total = [1, 2, 3, 4, 5];
@@ -8,7 +9,7 @@ export const CartDetails = () => {
   return (
     <div className="mt-[55px] px-4 sm:px-9 text-xs min-h-[85vh]">
       {cart.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-10 gap-x-10">
+        <div className="grid grid-cols-1 md:grid-cols-10 gap-x-[96px]">
           <div className="grid-cols-1 md:col-span-7 grid place-items-center">
             <div className="w-full">
               <p>Shopping cart</p>
@@ -64,15 +65,32 @@ export const CartDetails = () => {
               <div>
                 <p className="uppercase mb-2.5">Logged in as</p>
                 <p className="mb-5">{user.email}</p>
-                
-                <button className="bg-black min-h-[35px] text-white w-full uppercase">proceed to checkout</button>
-              </div>
 
+                <Link
+                  to="/checkout"
+                  className=" bg-black min-h-[35px] text-white w-full uppercase flex items-center justify-center"
+                >
+                  proceed to checkout
+                </Link>
+              </div>
             )}
           </div>
         </div>
       )}
-      {cart.length == 0 && <div>Your shopping bag is empty</div>}
+      {cart.length == 0 && (
+        <div>
+          <p className="uppercase mb-[35px]">Shopping bag</p>
+          <p>Your shopping bag is empty</p>
+          <div className="grid place-items-center mt-5">
+            <Link
+              to="/products"
+              className="bg-black text-white h-[35px] min-w-[150px] w-[50%] flex items-center justify-center"
+            >
+              SHOP ALL PRODUCTS
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
