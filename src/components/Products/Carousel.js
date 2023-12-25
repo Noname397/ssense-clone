@@ -5,7 +5,7 @@ export const Carousel = ({slides}) => {
         return index;
     });
     const carouselRef = useRef();
-    const DRAG_BUFFER = carouselRef.current?.offsetWidth/3;
+    const DRAG_BUFFER = 10;
     console.log("DRAG_BUFFER " + DRAG_BUFFER);
     const [activeSlideButton, setActiveSlideButton] = useState(0);
     const [dragging,setDragging] = useState(false);
