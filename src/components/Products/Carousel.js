@@ -24,27 +24,34 @@ export const Carousel = ({slides}) => {
       }
     } 
     const dragX = useMotionValue(0);
-    const [imageStyles, setImageStyles] = useState([true,true,true,true,true]);
+    const [imageStyles, setImageStyles] = useState([]);
 
   const handleImageLoad = (index, event) => {
+    event.preventDefault();
     const { naturalWidth, naturalHeight } = event.target;
-    console.log(index);
-    console.log(naturalHeight + "-" + naturalWidth);
+    console.log(index+":"+naturalHeight + "-" + naturalWidth);
     const isWide = naturalWidth > naturalHeight;
-    console.log(isWide);
-    const newStyles = [...imageStyles];
-    newStyles[index] = isWide;
-    console.log(newStyles)
-    setImageStyles(newStyles);
+    console.log("isWide",isWide);
+    setImageStyles(prevStyles => {
+      const newStyles = [...prevStyles];
+      console.log("before adding", newStyles);
+      newStyles.push(isWide);
+      console.log("newStyles", newStyles);
+      console.log("after adding", newStyles);
+      return newStyles;
+  });
   };
 
   useEffect(() => {
     // Load image dimensions when the component mounts
-    slides.forEach((_, index) => {
-      const img = new Image();
-      img.onload = (event) => handleImageLoad(index, event);
-      img.src = slides[index];
-    });
+    const handleAllImage = async () => {
+      slides.forEach((_, index) => {
+        const img = new Image();
+        img.onload = (event) => handleImageLoad(index, event);
+        img.src = slides[index];
+      });
+    }
+    handleAllImage();
   }, [slides]);
 
   useEffect(() => {
@@ -74,9 +81,11 @@ export const Carousel = ({slides}) => {
                     {slides.map((s,index) => {
                         return (
                             <div className="w-full h-full shrink-0 flex items-center justify-center" key={index}>
-                                <img src={s} className={`object-cover ${
+                                <img src={s} className={`object-cover aspect-auto z-0
+                                 ${
                                   imageStyles[index] ? "w-full" : "h-full"
-                                }`} alt="" 
+                                }`} 
+                                alt="" 
                                 // onLoad={(event) => handleImageLoad(index,event)}
                                 />
                             </div>

@@ -6,6 +6,7 @@ import { UserCart } from "../../contexts/CartContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../configs/firebase-config";
 import { Carousel } from "./Carousel";
+import { RelatedProducts } from "./RelatedProducts";
 export const ProductDetails = () => {
   const location = useLocation();
   const [product,setProduct] = useState(location.state);
@@ -24,6 +25,37 @@ export const ProductDetails = () => {
 
     getProducts();
   }, []);
+  const [imageStyles, setImageStyles] = useState([]);
+  const handleImageLoad = (index, event) => {
+    event.preventDefault();
+    const { naturalWidth, naturalHeight } = event.target;
+    console.log(index);
+    console.log(naturalHeight + "-" + naturalWidth);
+    const isWide = naturalWidth > naturalHeight;
+    console.log(isWide);
+    const newStyles = [...imageStyles];
+    setImageStyles(prevStyles => {
+      const newStyles = [...prevStyles];
+      console.log("before adding", newStyles);
+      newStyles.push(isWide);
+      console.log("newStyles", newStyles);
+      console.log("after adding", newStyles);
+      return newStyles;
+  });
+  };
+
+  useEffect(() => {
+    // Load image dimensions when the component mounts
+    const handleAllImage = async () => {
+      product.imgLinks.forEach((_, index) => {
+        const img = new Image();
+        img.onload = (event) => handleImageLoad(index, event);
+        img.src = product.imgLinks[index];
+      });
+    }
+    handleAllImage();
+  }, [product]);
+
   console.log(product)
   const { cart, addToCart,findIndexItem } = UserCart();
   // const buttonValues = product?.imgLinks?.map((item, index) => {
@@ -45,7 +77,9 @@ export const ProductDetails = () => {
       <Navbar></Navbar>
       <div className="hidden lg:grid w-full grid-cols-5 ">
         <div className="col-span-1">
-          <div className="sticky top-[50%]">
+        <div className="sticky" style={{
+          top: 'calc(50vh - 80px)'
+        }}>
             <div className="text-xs uppercase">{product?.brand}</div>
             <div className="text-xs">{product?.name}</div>
             <div className="text-xs">
@@ -65,26 +99,30 @@ export const ProductDetails = () => {
         </div>
         <div className="col-span-3">
           <div className="flex flex-col items-center justify-center">
-            {product?.imgLinks?.map((link) => {
+            {product?.imgLinks?.map((link,index) => {
               return (
-                <div className="h-screen mb-75 max-w-[450px] grid place-items-center">
-                  <img src={link} alt="" />
+                <div className="h-screen mb-75 w-[450px] mb-4 flex justify-center items-center z-0">
+                  <img src={link} className={`object-cover ${
+                                  imageStyles[index] ? "w-full" : "h-full"
+                                }`} alt="" />
                 </div>
               );
             })}
           </div>
         </div>
         <div className="col-span-1">
-          <div className="sticky top-[50%] xl:mr-[50px]">
+          <div className="sticky xl:mr-[50px]" style={{
+          top: 'calc(50vh - 80px)'
+        }}>
             <div className="text-xs">{"$" + product?.price}</div>
             <div className="flex w-full">
             <button
-                className="text-xs uppercase min-w-[50%] min-h-[35px] bg-black text-white"
+                className="text-xs uppercase w-1/2 min-h-[35px] bg-black text-white px-1"
                 onClick={handleAddCart}
               >
                 Add to bag
               </button>
-              <button className="text-xs  uppercase min-w-[50%] min-h-[35px] bg-white text-black">
+              <button className="text-xs  uppercase w-1/2 min-h-[35px] bg-white text-black px-1">
                 Add to wishlist
               </button>
             </div>
@@ -104,29 +142,6 @@ export const ProductDetails = () => {
               })} */}
             </Carousel>
           </div>
-          {/* <div className="grid place-items-center overflow-hidden h-[400px] md:h-[600px]">
-            <img
-              src={product?.imgLinks[activeSlideButton]}
-              className="max-h-full object-fill"
-              alt=""
-            />
-          </div> */}
-          {/* <div className="flex justify-center">
-            {buttonValues?.map((index) => {
-              return (
-                <button
-                  onClick={() => {
-                    setActiveSlideButton(index);
-                  }}
-                  className={`border-t-2 m-0.5 ${
-                    activeSlideButton === index
-                      ? "w-[45px] border-black"
-                      : "w-5 border-[#B6B6B6]"
-                  }`}
-                ></button>
-              );
-            })}
-          </div> */}
         </div>
         <div className="col-span-2 h-full mt-[15px]">
           <div className="flex justify-between mb-[15px]">
@@ -162,7 +177,10 @@ export const ProductDetails = () => {
         </div>
       </div>
       <div className="mt-7">
-      <div className="uppercase text-xs">You may also like</div>
+      <div className="uppercase text-xs">
+        <p>You may also like</p>
+         <RelatedProducts></RelatedProducts>
+        </div>
       <div className="uppercase text-xs">{product?.brand}</div>
       </div>
       <Footer></Footer>

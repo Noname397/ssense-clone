@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,9 +16,10 @@ const Navbar = () => {
   const [mobileAccount, setMobileAccount] = useState(false);
   const [languageMobileMenu,setLanguageMobileMenu] = useState(false);
 
+  mobileMenu || mobileAccount ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto" 
   return (
-    <div className="w-full fixed z-50 top-0 left-0">
-      <header className="bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
+    <div className="w-full fixed z-5 top-0 left-0">
+      <header className=" bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
         <div className="grid grid-cols-2 gap-x-1 lg:hidden">
           <Link>
             <AiOutlineMenu
@@ -139,7 +140,7 @@ const Navbar = () => {
         </div>
       </header>
       {mobileMenu && (
-        <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-51 overflow-hidden transition-transform ease-in-out duration-500 transform translate-x-4">
+         <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-10 overflow-hidden">
           <li className="pt-3 pb-10 px-9 flex justify-end uppercase">
             <Link onClick={() => {
               setMobileMenu(false);
@@ -180,7 +181,8 @@ const Navbar = () => {
       )}
 
       {mobileAccount && (
-        <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-51 overflow-hidden">
+        <div className="max-height-[70vh] overflow-hidden">
+        <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-20 overflow-hidden">
           <li className="pt-3 pb-10 px-9 flex justify-end uppercase">
             <ul className="flex w-full justify-between">
               <li onClick={() => {
@@ -226,6 +228,7 @@ const Navbar = () => {
             </a>
           </li>
         </ul>
+        </div>
       )}
     </div>
   );
