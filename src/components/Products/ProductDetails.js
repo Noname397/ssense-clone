@@ -101,10 +101,13 @@ export const ProductDetails = () => {
           <div className="flex flex-col items-center justify-center">
             {product?.imgLinks?.map((link,index) => {
               return (
-                <div className="h-screen mb-75 w-[450px] mb-4 flex justify-center items-center z-0">
+                <div className="h-screen mb-75 w-[450px] mb-4 flex justify-center items-center">
                   <img src={link} className={`object-cover ${
                                   imageStyles[index] ? "w-full" : "h-full"
-                                }`} alt="" />
+                                }`} style={{
+                                  zIndex: "-1",
+                                  
+                                }} alt="" />
                 </div>
               );
             })}
@@ -131,7 +134,7 @@ export const ProductDetails = () => {
       </div>
       <div className="lg:hidden grid w-full min-[576px]:grid-cols-4 md:grid-cols-5 m gap-x-3 text-xs ">
         <div className="md:col-span-3 col-span-2 ">
-          <div className="h-[400px] md:h-[600px] flex">
+          <div className="h-[400px] md:h-[600px] flex relative">
             <Carousel slides={product.imgLinks} className="h-full">
               {/* {product?.imgLinks?.map((link) => {
                 return (

@@ -81,11 +81,15 @@ export const Carousel = ({slides}) => {
                     {slides.map((s,index) => {
                         return (
                             <div className="w-full h-full shrink-0 flex items-center justify-center" key={index}>
-                                <img src={s} className={`object-cover aspect-auto z-0
+                                <img src={s} className={`object-cover aspect-auto
                                  ${
                                   imageStyles[index] ? "w-full" : "h-full"
                                 }`} 
+                                style={{
+                                  zIndex: "-1",position: "relative",
+                                }} 
                                 alt="" 
+
                                 // onLoad={(event) => handleImageLoad(index,event)}
                                 />
                             </div>
