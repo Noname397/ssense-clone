@@ -27,7 +27,6 @@ export const ProductDetails = () => {
   }, []);
   const [imageStyles, setImageStyles] = useState([]);
   const handleImageLoad = (index, event) => {
-    event.preventDefault();
     const { naturalWidth, naturalHeight } = event.target;
     console.log(index);
     console.log(naturalHeight + "-" + naturalWidth);
@@ -36,7 +35,7 @@ export const ProductDetails = () => {
     const newStyles = [...imageStyles];
     setImageStyles(prevStyles => {
       const newStyles = [...prevStyles];
-      console.log("before adding", newStyles);
+      console.log("before adding", prevStyles);
       newStyles.push(isWide);
       console.log("newStyles", newStyles);
       console.log("after adding", newStyles);
@@ -46,15 +45,40 @@ export const ProductDetails = () => {
 
   useEffect(() => {
     // Load image dimensions when the component mounts
-    const handleAllImage = async () => {
-      product.imgLinks.forEach((_, index) => {
+    const loadImage = async (index) =>
+      new Promise((resolve) => {
         const img = new Image();
-        img.onload = (event) => handleImageLoad(index, event);
+        let loaded = false;
+  
+        img.onload = (event) => {
+          if (!loaded) {
+            loaded = true;
+            handleImageLoad(index, event);
+            resolve(); // Resolve the promise once the image is loaded
+          }
+        };
+  
         img.src = product.imgLinks[index];
+  
+        if (img.complete && !loaded) {
+          // If the image is in the cache, resolve immediately
+          loaded = true;
+          handleImageLoad(index, { target: img });
+          resolve();
+        }
       });
+  
+    if (product.imgLinks.length > 0) {
+      const handleAllImage = async () => {
+        for (let index = 0; index < product.imgLinks.length; index++) {
+          await loadImage(index);
+        }
+      };
+  
+      handleAllImage();
     }
-    handleAllImage();
   }, [product]);
+  
 
   console.log(product)
   const { cart, addToCart,findIndexItem } = UserCart();

@@ -27,14 +27,14 @@ export const Carousel = ({slides}) => {
     const [imageStyles, setImageStyles] = useState([]);
 
   const handleImageLoad = (index, event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const { naturalWidth, naturalHeight } = event.target;
     console.log(index+":"+naturalHeight + "-" + naturalWidth);
     const isWide = naturalWidth > naturalHeight;
     console.log("isWide",isWide);
     setImageStyles(prevStyles => {
       const newStyles = [...prevStyles];
-      console.log("before adding", newStyles);
+      console.log("before adding", prevStyles);
       newStyles.push(isWide);
       console.log("newStyles", newStyles);
       console.log("after adding", newStyles);
@@ -43,20 +43,35 @@ export const Carousel = ({slides}) => {
   };
 
   useEffect(() => {
-    // Load image dimensions when the component mounts
-    const handleAllImage = async () => {
-      slides.forEach((_, index) => {
-        const img = new Image();
-        img.onload = (event) => handleImageLoad(index, event);
-        img.src = slides[index];
-      });
+    if (slides.length > 0) {
+      const handleAllImage = async () => {
+        const loadImage = (index) =>
+          new Promise((resolve) => {
+            const img = new Image();
+            img.onload = (event) => {
+              handleImageLoad(index, event);
+              resolve();
+            };
+            img.src = slides[index];
+            if (img.complete) {
+              // If the image is in the cache, resolve immediately
+              resolve();
+            }
+          });
+  
+        // Load images sequentially
+        for (let index = 0; index < slides.length; index++) {
+          await loadImage(index);
+        }
+      };
+  
+      handleAllImage();
     }
-    handleAllImage();
   }, [slides]);
+  
+  
+  
 
-  useEffect(() => {
-    console.log(imageStyles);
-  },[imageStyles])
     return (
         <div className="w-full h-full">
             <motion.div id="carousel" ref={carouselRef} className="overflow-hidden h-full w-full">
