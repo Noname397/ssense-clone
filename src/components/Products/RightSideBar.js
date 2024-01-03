@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 export const RightSideBar = (props) => {
   return (
     <div className="flex flex-col items-end">
-      <div>
+      {/* <div>
         <h2 className="font-bold uppercase text-xs my-[10px]">Sort</h2>
         <ul>
           <a href="#" onClick={() => props.updatePrice("descendingPrice")}>
@@ -44,7 +44,7 @@ export const RightSideBar = (props) => {
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
     </div>
   );
 };

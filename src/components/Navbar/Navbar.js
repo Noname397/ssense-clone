@@ -141,7 +141,7 @@ const Navbar = () => {
       </header>
       {mobileMenu && (
          <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-20 overflow-hidden">
-          <li className="pt-3 pb-10 px-9 flex justify-end uppercase">
+          <li className="pt-3 pb-6 px-9 flex justify-end uppercase">
             <Link onClick={() => {
               setMobileMenu(false);
             }}>close</Link>
@@ -183,7 +183,7 @@ const Navbar = () => {
       {mobileAccount && (
         <div className="max-height-[70vh] overflow-hidden">
         <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-30 overflow-hidden">
-          <li className="pt-3 pb-10 px-9 flex justify-end uppercase">
+          <li className="pt-3 pb-6 px-9 flex justify-end uppercase">
             <ul className="flex w-full justify-between">
               <li onClick={() => {
                 setMobileAccount(false);
