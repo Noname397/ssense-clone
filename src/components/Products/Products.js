@@ -23,18 +23,7 @@ export const Products = () => {
   const [activeSubType,setActiveSubType] = useState([]);
   const [allSubSubTypes,setAllSubSubTypes] = useState([]); 
   function filterProductsByType(products,type) {
-    // switch (type) {
-    //   case "accessories":
-    //     return products.filter((item) => item?.type === "accessory");
-    //   case "bags":
-    //     return temp.filter((item) => item?.type === "bag");
-    //   case "clothing":
-    //     return temp.filter((item) => item?.type === "clothing");
-    //   case "shoes":
-    //     return temp.filter((item) => item?.type === "shoe");
-    //   default:
-    //     return temp;
-    // }
+    if (type === "") return products;
     let filtered = products.filter((item) => item?.type === type);
     if (filtered.length > 0) return filtered;
     else {
@@ -48,10 +37,12 @@ export const Products = () => {
   }
 
   function filterProductsByDesigner(products,designerName) {
+    if (designerName === "") return products;
     return products.filter((item) => item.brand === designerName);
   }
 
   function filterProductsByColor(products,color) {
+    if (color ===  "") return products;
     return products.filter((item) => doesItemExist(item.color,color.toLowerCase()) === true);
   }
 
@@ -60,63 +51,33 @@ export const Products = () => {
   };
 
   function filterProductsByPrice(products,cmd) {
-    switch (cmd) {
-      case "descendingPrice":
+    if (cmd === "descendingPrice")
         return products.sort((a, b) => b.price - a.price);
-      case "ascendingPrice":
+    else if (cmd === "ascendingPrice")
         return products.sort((a, b) => a.price - b.price);
-      default:
+    else
         return products;
-    }
   }
 
 
   useEffect(() => {
-    if (typeName === "" && designerName === "" && color === ""){
-      returnAllProducts();
-    }
-    if (typeName === "" && designerName === "" && color !== ""){
+    const filtering = () => {
+      console.log(typeName,designerName,color,priceCommend);
       setFilteredProducts(
-        filterProductsByColor(products,color)
-      );
+        filterProductsByType(
+          filterProductsByColor(
+            filterProductsByDesigner(
+              filterProductsByPrice(products,priceCommend)
+            ,designerName
+          )
+        ,color)
+      ,typeName)
+    )
     }
-    if (typeName === "" && designerName !== "" && color === ""){
-      setFilteredProducts(
-        filterProductsByDesigner(products,designerName)
-      );
-    }
-    if (typeName === "" && designerName !== "" && color !== ""){
-      setFilteredProducts(
-        filterProductsByColor(filterProductsByDesigner(products,designerName),color)
-      );
-    }
-    if (typeName !== "" && designerName === "" && color === ""){
-      setFilteredProducts(
-        filterProductsByType(products,typeName)
-      )
-    }
-    if (typeName !== "" && designerName === "" && color !== ""){
-      setFilteredProducts(
-        filterProductsByColor(filterProductsByType(products,typeName),color)
-      )
-    }
-    if (typeName !== "" && designerName !== "" && color === ""){
-      setFilteredProducts(
-        filterProductsByDesigner(filterProductsByType(products,typeName),designerName)
-      );
-    }
-    if (typeName !== "" && designerName !== "" && color !== ""){
-      setFilteredProducts(
-        filterProductsByColor(filterProductsByDesigner(filterProductsByType(products,typeName),designerName),color)
-      );
-    }
-  },[typeName,designerName,color])
+    filtering();
+    console.log(filteredProducts)
+  },[typeName,designerName,color,priceCommend])
 
-  useEffect(() => {
-    console.log(priceCommend);
-    console.log(filterProductsByPrice(priceCommend));
-    setFilteredProducts(filterProductsByPrice(priceCommend));
-  }, [priceCommend]);
 
 
   useEffect(() => {
@@ -144,7 +105,7 @@ export const Products = () => {
       colors.push(c.charAt(0).toUpperCase() + c.slice(1));
     }
     colors.sort();
-    console.log(colors);
+    console.log("colors",colors);
     setAllColors(colors);
     const allCategories = products.map((item) => ({
       type: item.type,
@@ -250,6 +211,7 @@ export const Products = () => {
 
   const updatePrice = (cmd) => {
     setPriceCommend(cmd);
+    filterProductsByPrice(filteredProducts,cmd);
   };
 
   const updateColor = (color) => {
@@ -285,24 +247,29 @@ export const Products = () => {
   },[allSubSubTypes])
   return (
     <div className="pt-[55px] w-full text-xs">
-      <div className="w-full border grid grid-cols-2 lg:hidden">
+      <div className="w-full border-t border-b border-[#ccc] grid grid-cols-2 lg:hidden sticky top-[55px] z-5 bg-white">
         <li
           onClick={() => {
             setMobileRefine(!mobileRefine);
             setMobileSort(false);
           }}
-          className="h-10 col-span-1 border-r border-b grid place-items-center font-bold"
+          className="h-10 col-span-1 border-r border-[#ccc] grid place-items-center font-bold"
         >
-          <span>REFINE</span>
+          <span>REFINE {countRefines > 0 ? "(" + countRefines + ")" : ""}</span>
         </li>
         <li
           onClick={() => {
             setMobileSort(!mobileSort);
             setMobileRefine(false);
           }}
-          className="h-10 col-span-1 border-b grid place-items-center font-bold"
+          className="h-10 col-span-1  grid place-items-center font-bold"
         >
-          <span>SORT</span>
+          <span>SORT
+            <span>
+              {priceCommend === "ascendingPrice" && " (ASCENDING)" }
+              {priceCommend === "descendingPrice" && " (DESCENDING)" }
+            </span>
+             </span>
         </li>
         {mobileRefine && (
           <div className="fixed top-0 left-0 z-10 h-full w-full bg-white px-6 sm:px-9">
@@ -530,70 +497,6 @@ export const Products = () => {
               </div>
             </div>
             
-            {/* <div className="px-4 sm:px-9">
-              <p
-                className="cursor-pointer"
-                onClick={() => {
-                  updateType("");
-                }}
-              >
-                ALL CATEGORIES
-              </p>
-              <ul className="h-[80px] md:h-10 grid grid-cols-2 md:grid-cols-4 w-full">
-                <li
-                  className="grid place-items-center cursor-pointer h-full"
-                  onClick={() => {
-                    updateType("accessories");
-                  }}
-                >
-                  ACCESSORIES
-                </li>
-                <li
-                  className="grid place-items-center cursor-pointer h-full"
-                  onClick={() => {
-                    updateType("bags");
-                  }}
-                >
-                  BAGS
-                </li>
-                <li
-                  className="grid place-items-center cursor-pointer h-full"
-                  onClick={() => {
-                    updateType("clothing");
-                  }}
-                >
-                  CLOTHING
-                </li>
-                <li
-                  className="grid place-items-center cursor-pointer h-full"
-                  onClick={() => {
-                    updateType("shoes");
-                  }}
-                >
-                  SHOES
-                </li>
-              </ul>
-            </div>
-            <div className="flex items-center border-t min-h-[40px] px-4 sm:px-9">
-              <p className="">ALL DESIGNERS</p>
-              <select
-                name=""
-                id=""
-                className="text-xs ml-3 "
-                onChange={(e) => {
-                  updateDesigner(e.target.value);
-                }}
-              >
-                <option value="" disabled selected>
-                  Select
-                </option>
-                {allDesigners.map((item, index) => (
-                  <option value={item} key={index}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div> */}
           </div>
         )}
         {mobileSort && (
@@ -623,14 +526,6 @@ export const Products = () => {
             >
               Price: Low to High
             </li>
-            <li
-              className="h-10 flex items-center px-4 sm:px-9 cursor-pointer"
-              onClick={() => {
-                updatePrice("");setMobileSort(false);
-              }}
-            >
-              Price: Default
-            </li>
             </ul>
           </div>
         )}
@@ -638,12 +533,26 @@ export const Products = () => {
       <div className="px-4 sm:px-9 min-h-[93vh]">
         <div className="grid grid-cols-4 lg:grid-cols-6">
           <div className="hidden lg:block lg:col-span-1">
+            <div className="sticky top-[55px]">
             <LeftSideBar
               updateType={updateType}
               updateDesigner={updateDesigner}
               allDesigners={allDesigners}
               returnAllProducts={returnAllProducts}
+              allTypes= {allTypes}
+              activeType={activeType}
+              setActiveType={setActiveType}
+              activeSubType={activeSubType}
+              setActiveSubType={setActiveSubType}
+              allSubTypes={allSubTypes}
+              allSubSubTypes={allSubSubTypes}
+              userType={userType}
+              setUserType={setUserType}
+              designerName={designerName}
+              updateColor={updateColor}
+              updatePrice={updatePrice}
             ></LeftSideBar>
+            </div>
           </div>
           <div className="col-span-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-[30px] gap-x-[10px]">
@@ -677,12 +586,17 @@ export const Products = () => {
             </div>
           </div>
           <div className="hidden lg:block lg:col-span-1">
+            <div className="sticky top-[55px]">
+
             <RightSideBar
               updatePrice={updatePrice}
-              colors={allColors}
+              priceCommend={priceCommend}
+              allColors={allColors}
               updateColor={updateColor}
               returnAllProducts={returnAllProducts}
+              color={color}
             ></RightSideBar>
+            </div>
           </div>
         </div>
       </div>
