@@ -559,13 +559,8 @@ export const Products = () => {
               {filteredProducts.map((product, index) => {
                 return (
                   <Link
-                    to={
-                      "/product/" +
-                      linkifyString(product.brand) +
-                      "/" +
-                      linkifyString(product.name)
-                    }
-                    state={product}
+                    to={`/product/${linkifyString(product.brand)}/${linkifyString(product.name)}`}
+
                     key={index}
                   >
                     <ProductCard

@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
@@ -8,8 +8,18 @@ import { db } from "../../configs/firebase-config";
 import { Carousel } from "./Carousel";
 import { RelatedProducts } from "./RelatedProducts";
 export const ProductDetails = () => {
-  const location = useLocation();
-  const [product,setProduct] = useState(location.state);
+  // const location = useLocation();
+  const linkifyString = (str) => {
+    if (!str) {
+      return ""; // Handle undefined or null case
+    }
+    return str.replace(/\s+/g, "-").replace(/['"]+/g, "").replace(/\*+/g, "").toLowerCase();
+  };
+  const {brand,name} = useParams();
+  useEffect(() => {
+    console.log("brand",brand,"name",name)
+  },[brand,name])
+  const [product,setProduct] = useState(null);
   useEffect(() => {
     const getProducts = async () => {
       const productsCollectionRef = collection(db, "products");
@@ -18,11 +28,18 @@ export const ProductDetails = () => {
         ...doc.data(),
         id: doc.id,
       }));
-      console.log(processedData);
-      //setProducts(processedData);
-      //setFilteredProducts(processedData);
+      console.log(processedData)
+      const foundProduct = processedData.find(
+        (item) =>
+          linkifyString(item.brand) === brand &&
+          linkifyString(item.name) === name
+      );
+      
+      if (foundProduct) {
+        setProduct(foundProduct);
+      }
     };
-
+    
     getProducts();
   }, []);
   const [imageStyles, setImageStyles] = useState([]);
@@ -68,7 +85,7 @@ export const ProductDetails = () => {
         }
       });
   
-    if (product.imgLinks.length > 0) {
+    if (product?.imgLinks.length > 0) {
       const handleAllImage = async () => {
         for (let index = 0; index < product.imgLinks.length; index++) {
           await loadImage(index);
@@ -82,10 +99,6 @@ export const ProductDetails = () => {
 
   console.log(product)
   const { cart, addToCart,findIndexItem } = UserCart();
-  // const buttonValues = product?.imgLinks?.map((item, index) => {
-  //   return index;
-  // });
-  // const [activeSlideButton, setActiveSlideButton] = useState(0);
   console.log(product);
   console.log(cart);
   const item = {
@@ -159,14 +172,7 @@ export const ProductDetails = () => {
       <div className="lg:hidden grid w-full min-[576px]:grid-cols-4 md:grid-cols-5 m gap-x-3 text-xs ">
         <div className="md:col-span-3 col-span-2 ">
           <div className="h-[400px] md:h-[600px] flex relative">
-            <Carousel slides={product.imgLinks} className="h-full">
-              {/* {product?.imgLinks?.map((link) => {
-                return (
-                  <div className="grid place-items-center">
-                    <img src={link} className="max-h-full object-fill" alt="" />
-                  </div>
-                );
-              })} */}
+            <Carousel imgLinks={product?.imgLinks} imageStyles={imageStyles} className="h-full">
             </Carousel>
           </div>
         </div>

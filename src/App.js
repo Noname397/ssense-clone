@@ -17,7 +17,29 @@ import { OrderHistory } from "./components/Account/OrderHistory";
 import { NewAddress } from "./components/Account/NewAddress";
 import { EditAddress } from "./components/Account/EditAddress";
 import { Checkout } from "./pages/Checkout";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./configs/firebase-config";
 function App() {
+  const productsCollectionRef = collection(db,"products")
+  const [allProducts,setAllProducts] = useState([]);
+  useEffect(() => {
+    const getProducts = async () => {
+      const data = await getDocs(productsCollectionRef);
+      const processedData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setAllProducts(processedData)
+    }
+    getProducts();
+  },[])
+  const linkifyString = (str) => {
+    if (!str) {
+      return ""; // Handle undefined or null case
+    }
+    return str.replace(/\s+/g, "-").replace(/['"]+/g, "").replace(/\*+/g, "").toLowerCase();
+  };
   return (
     <Router>
       <AuthContextProvider>
@@ -47,6 +69,16 @@ function App() {
               path="/product/:brand/:name"
               element={<ProductDetails />}
             ></Route>
+            {/* {
+              allProducts.map((item,index) => {
+                return (
+                  <Route path={`/product/${linkifyString(item.brand)}/${linkifyString(item.name)}`}
+                  element={<ProductDetails product={item} />}
+                  >
+                  </Route>
+                )
+              })
+            } */}
             <Route path="/new-product" element={<NewProduct />} />
             <Route path="/checkout" element={<Checkout />}></Route>
           </Routes>
