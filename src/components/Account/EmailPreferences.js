@@ -59,8 +59,8 @@ export const EmailPreference = () => {
             </h1>
             <div>
               <h2 className="text-sm">Newsletters</h2>
-              <div className="flex w-full mt-2.5 mb-5">
-                <div className="flex w-1/4">
+              <div className="min-[450px]:flex w-full mt-2.5 mb-5">
+                <div className="flex w-1/4 ">
                   <input
                     type="radio"
                     name="newslatter"
@@ -72,13 +72,13 @@ export const EmailPreference = () => {
                         newsletterSubscription: true,
                       })
                     }
-                    className="checked:text-black checked:hover:text-black focus:text-black focus:outline-none focus:ring-1 focus:ring-black checked:focus:text-black checked:active:text-black"
+                    className=" checked:text-black checked:hover:text-black focus:text-black focus:outline-none focus:ring-0 focus:ring-black checked:focus:text-black checked:active:text-black"
                   />
                   <label htmlFor="subscribed" className="pl-[14px]">
                     Subscribed
                   </label>
                 </div>
-                <div className="flex w-1/4">
+                <div className="flex w-1/4 min-[450px]:ml-3 max-[450px]:mt-2">
                   <input
                     type="radio"
                     name="newslatter"
@@ -91,7 +91,7 @@ export const EmailPreference = () => {
                         newsletterSubscription: false,
                       })
                     }
-                    className="checked:text-black checked:hover:text-black focus:text-black focus:outline-none focus:ring-1 focus:ring-black checked:focus:text-black checked:active:text-black"
+                    className="checked:text-black checked:hover:text-black focus:text-black focus:outline-none focus:ring-0 focus:ring-black checked:focus:text-black checked:active:text-black"
                   />
                   <label htmlFor="unsubscribed" className="pl-[14px]">
                     Unsubscribed
@@ -140,8 +140,8 @@ export const EmailPreference = () => {
             </div>
             <div>
               <h3 className="mt-2.5 mb-2.5 text-base">Email notification</h3>
-              <div className="flex w-full mb-5">
-                <div className="flex w-1/4">
+              <div className="min-[450px]:flex w-full mb-5">
+                <div className="flex min-[450px]:w-1/4">
                   <input
                     type="radio"
                     name="email-notification"
@@ -159,7 +159,7 @@ export const EmailPreference = () => {
                     On
                   </label>
                 </div>
-                <div className="flex w-1/4">
+                <div className="flex min-[450px]:w-1/4 max-[450px]:mt-2">
                   <input
                     type="radio"
                     name="email-notification"
