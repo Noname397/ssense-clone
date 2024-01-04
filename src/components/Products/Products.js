@@ -6,7 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../configs/firebase-config";
 import { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
-import { CiFilter } from "react-icons/ci";
+import { motion } from "framer-motion";
 export const Products = () => {
   const productsCollectionRef = collection(db, "products");
   const [products, setProducts] = useState([]);
@@ -245,9 +245,10 @@ export const Products = () => {
   useEffect(() => {
     console.log("allSubSubTypes",allSubSubTypes)
   },[allSubSubTypes])
+  mobileRefine || mobileSort ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto" 
   return (
     <div className="pt-[55px] w-full text-xs">
-      <div className="w-full border-t border-b z-[5] sticky top-[55px] border-[#ccc] grid grid-cols-2 lg:hidden bg-white">
+      <div className="w-full border-t border-b z-[5] border-[#ccc] grid grid-cols-2 lg:hidden bg-white">
         <li
           onClick={() => {
             setMobileRefine(!mobileRefine);
@@ -272,8 +273,8 @@ export const Products = () => {
              </span>
         </li>
         {mobileRefine && (
-          <div className="fixed top-0 left-0 z-30 h-full w-full bg-white px-6 sm:px-9">
-            <ul className="flex justify-between pt-3 pb-6">
+          <div className="fixed top-0 left-0 z-20 h-full w-full bg-white px-6 sm:px-9">
+            <ul className="flex justify-between pt-3 pb-6 z-30">
               <li className="uppercase" onClick={() => {
                 setMobileRefine(false);
               }} >Cancel</li>
@@ -291,27 +292,29 @@ export const Products = () => {
                   setUserType("");
                 }}>Clear</button>
               )}
+              <motion.div className="flex overflow-x-auto">
               {
                 userDesigner && 
-                <button className="capitalize mr-5 inline-flex items-center justify-between p-2.5 min-w-[110px] min-h-[10px] bg-[rgba(243,243,243,.9529411765)]">
+                <button className="capitalize mr-5 inline-flex items-center justify-between p-2.5 min-w-fit  min-h-[10px] bg-[rgba(243,243,243,.9529411765)]">
                   <span>{userDesigner}</span>
                   <FiX onClick={() => {
                     setUserDesigner("");
                   }} />
                  </button> 
               }
-              {userType && <button className="capitalize mr-5 inline-flex items-center justify-between p-2.5 min-w-[110px] min-h-[10px] bg-[rgba(243,243,243,.9529411765)]">
+              {userType && <button className="capitalize mr-5 inline-flex items-center justify-between p-2.5 min-w-fit  min-h-[10px] bg-[rgba(243,243,243,.9529411765)]">
                   <span>{userType}</span>
                   <FiX onClick={() => {
                     setUserType("");
                   }} />
                  </button> }
-              {userColor && <button className="capitalize mr-5 inline-flex items-center justify-between p-2.5 min-w-[110px] min-h-[10px] bg-[rgba(243,243,243,.9529411765)]">
+              {userColor && <button className="capitalize mr-5 inline-flex items-center justify-between p-2.5 min-w-fit  min-h-[10px] bg-[rgba(243,243,243,.9529411765)]">
                   <span>{userColor}</span>
                   <FiX onClick={() => {
                     setUserColor("");
                   }} />
                  </button> }
+              </motion.div>
             </div>
             <div className="pb-5">
               {
@@ -500,7 +503,7 @@ export const Products = () => {
           </div>
         )}
         {mobileSort && (
-          <div className="fixed top-0 left-0 z-10 h-full w-full bg-white px-6 sm:px-9">
+          <div className="fixed top-0 left-0 z-20 h-full w-full bg-white px-6 sm:px-9">
             <ul className="flex justify-between pt-3 pb-6">
               <li className="uppercase" onClick={() => {
                 setMobileSort(false);

@@ -18,8 +18,8 @@ const Navbar = () => {
 
   mobileMenu || mobileAccount ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto" 
   return (
-    <div className="w-full fixed z-10 top-0 left-0">
-      <header className=" bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9 relative">
+    <div className="w-full fixed z-[5] top-0 left-0">
+      <header className=" bg-white h-[55px] flex justify-between items-center w-full px-4 sm:px-9">
         <div className="grid grid-cols-2 gap-x-1 lg:hidden">
           <Link>
             <AiOutlineMenu
@@ -140,7 +140,7 @@ const Navbar = () => {
         </div>
       </header>
       {mobileMenu && (
-         <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-30 overflow-hidden">
+         <ul className="text-xs lg:hidden bg-white fixed w-full h-full p-0 top-0 z-10 overflow-hidden">
           <li className="pt-3 pb-6 px-9 flex justify-end uppercase">
             <Link onClick={() => {
               setMobileMenu(false);
@@ -181,7 +181,7 @@ const Navbar = () => {
       )}
 
       {mobileAccount && (
-        <div className="max-height-[70vh] overflow-hidden">
+        <div className="max-height-[70vh] overflow-hidden text-xs z-[10]">
         <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-30 overflow-hidden">
           <li className="pt-3 pb-6 px-9 flex justify-end uppercase">
             <ul className="flex w-full justify-between">
