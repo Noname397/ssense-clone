@@ -140,7 +140,7 @@ const Navbar = () => {
         </div>
       </header>
       {mobileMenu && (
-         <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-20 overflow-hidden">
+         <ul className="lg:hidden bg-white fixed w-full h-full p-0 top-0 z-30 overflow-hidden">
           <li className="pt-3 pb-6 px-9 flex justify-end uppercase">
             <Link onClick={() => {
               setMobileMenu(false);

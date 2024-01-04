@@ -117,6 +117,7 @@ export const LeftSideBar = (props) => {
           props.updateColor("")
           props.updatePrice("")
           props.setUserType("")
+          props.returnAllProducts()
         }}>Reset</button>
       </div>
     </div>

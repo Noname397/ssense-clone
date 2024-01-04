@@ -6,7 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../configs/firebase-config";
 import { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
-import { type } from "@testing-library/user-event/dist/type";
+import { CiFilter } from "react-icons/ci";
 export const Products = () => {
   const productsCollectionRef = collection(db, "products");
   const [products, setProducts] = useState([]);
@@ -247,7 +247,7 @@ export const Products = () => {
   },[allSubSubTypes])
   return (
     <div className="pt-[55px] w-full text-xs">
-      <div className="w-full border-t border-b border-[#ccc] grid grid-cols-2 lg:hidden sticky top-[55px] z-5 bg-white">
+      <div className="w-full border-t border-b z-[5] sticky top-[55px] border-[#ccc] grid grid-cols-2 lg:hidden bg-white">
         <li
           onClick={() => {
             setMobileRefine(!mobileRefine);
@@ -272,7 +272,7 @@ export const Products = () => {
              </span>
         </li>
         {mobileRefine && (
-          <div className="fixed top-0 left-0 z-10 h-full w-full bg-white px-6 sm:px-9">
+          <div className="fixed top-0 left-0 z-30 h-full w-full bg-white px-6 sm:px-9">
             <ul className="flex justify-between pt-3 pb-6">
               <li className="uppercase" onClick={() => {
                 setMobileRefine(false);
